@@ -1,0 +1,44 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "yarn install; lerna bootstrap;",
+    "dev": "lerna run --scope vtm-baires-next --stream dev",
+    "dev:total": "lerna run --stream dev",
+    "start": "run-p --print-label package:*",
+    "build": "lerna run --parallel build",
+    "relay": "lerna run --scope vtm-baires-next-services --stream relay",
+    "refresh-graphql": "lerna run --scope vtm-baires-next-services --stream refresh-graphql"
+  },
+  "dependencies": {
+    "@absinthe/socket": "^0.2.1",
+    "@fluentui/react": "^8.55.3",
+    "@jumpn/utils-promise": "^0.3.1",
+    "@prefresh/utils": "^1.1.2",
+    "next": "12.1.0",
+    "next-plugin-preact": "^3.0.6",
+    "next-pwa": "^5.4.4",
+    "phoenix": "^1.6.6",
+    "preact": "^10.5.15",
+    "preact-render-to-string": "^5.1.19",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "react-relay": "^13.1.1",
+    "relay-runtime": "^13.1.1"
+  },
+  "devDependencies": {
+    "@prefresh/next": "^1.5.2",
+    "@types/absinthe__socket": "^0.2.3",
+    "@types/react": "^17.0.39",
+    "@types/react-relay": "^13.0.1",
+    "@types/relay-runtime": "^13.0.2",
+    "babel-plugin-relay": "^13.1.1",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "graphql": "^16.3.0",
+    "graphql-cli": "^4.1.0",
+    "lerna": "^4.0.0",
+    "relay-compiler": "^13.1.1",
+    "typescript": "^4.5.5"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "vtm-baires-next-socket",
+  "version": "1.0.0",
+  "description": "Absinthe socket for relay modern",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {}
+}

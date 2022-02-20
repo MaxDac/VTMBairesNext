@@ -1,0 +1,981 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+  subscription: RootSubscriptionType
+}
+
+input AddAdvantagesInput {
+  attributes: [CharacterAttributeRequest]
+  characterId: ID!
+  newStage: Int!
+  request: CharacterFinalizationRequest!
+}
+
+type AddAdvantagesPayload {
+  result: Character
+}
+
+input AddUserToPrivateRequest {
+  chatMapId: ID!
+  guestUserId: ID!
+}
+
+input ApplyDamageInput {
+  characterId: ID!
+  damageEntity: Int!
+  type: DamageType!
+}
+
+type ApplyDamagePayload {
+  result: String
+}
+
+input ApplyTemplateToCharacterInput {
+  characterId: ID!
+  templateId: ID!
+}
+
+type ApplyTemplateToCharacterPayload {
+  result: Boolean
+}
+
+input AssignNpcAttributesInput {
+  characterId: ID!
+  request: NpcAttributesRequest
+}
+
+type AssignNpcAttributesPayload {
+  response: Character
+}
+
+type Attribute implements Node {
+  attributeType: AttributeType
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+  order: Int
+}
+
+type AttributeType implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  section: String
+}
+
+input AwakeInput {
+  characterId: ID!
+}
+
+type AwakePayload {
+  result: String
+}
+
+input ChangeCharacterAttributeInput {
+  attributeId: ID!
+  characterId: ID!
+  newValue: Int!
+}
+
+type ChangeCharacterAttributePayload {
+  result: Boolean
+}
+
+input ChangeCharacterExperienceInput {
+  characterId: ID!
+  experienceChange: Int!
+}
+
+type ChangeCharacterExperiencePayload {
+  result: Character
+}
+
+input ChangeCharacterHuntDifficultyInput {
+  characterId: ID!
+  huntDifficulty: Int!
+}
+
+type ChangeCharacterHuntDifficultyPayload {
+  result: Character
+}
+
+input ChangeCharacterNotesInput {
+  advantages: String!
+  characterId: ID!
+  convictions: String
+  disciplinePowers: String
+  notes: String!
+  objects: String
+  specialties: String
+}
+
+type ChangeCharacterNotesPayload {
+  result: Character
+}
+
+input ChangeCharacterOtherStatsInput {
+  bloodPotency: Int!
+  characterId: ID!
+  health: Int!
+  humanity: Int!
+  predatorTypeId: ID!
+  willpower: Int!
+}
+
+type ChangeCharacterOtherStatsPayload {
+  result: Character
+}
+
+input ChangeCharacterStatusInput {
+  advantages: String!
+  characterId: ID!
+  convictions: String
+  disciplinePowers: String
+  notes: String!
+  objects: String
+  specialties: String
+}
+
+type ChangeCharacterStatusPayload {
+  result: Character
+}
+
+input ChangeSheetInfoInput {
+  characterId: ID!
+  request: ChangeSheetInfoRequest!
+}
+
+type ChangeSheetInfoPayload {
+  result: Character
+}
+
+input ChangeSheetInfoRequest {
+  avatar: String
+  biography: String
+  chatAvatar: String
+  description: String
+  objects: String
+  off: String
+  soundtrack: String
+}
+
+type Character implements Node {
+  advantages: String
+  aggravatedDamage: Int
+  approved: Boolean
+  avatar: String
+  biography: String
+  bloodPotency: Int
+  clan: Clan
+  convictions: String
+  damage: Int
+  dead: Boolean
+  description: String
+  disciplinePowers: String
+  experience: Int
+  generation: Int
+  health: Int
+  humanity: Int
+  hunger: Int
+  huntDifficulty: Int
+
+  """The ID of an object"""
+  id: ID!
+  isAwake: Boolean
+  isComplete: Boolean
+  isNpc: Boolean
+  lastAwake: DateTime
+  lastHunt: DateTime
+  lastResonance: String
+  lastResonanceIntensity: Int
+  name: String
+  notes: String
+  objects: String
+  off: String
+  predatorType: PredatorType
+  soundtrack: String
+  specialties: String
+  stage: Int
+  stains: Int
+  torpor: Boolean
+  totalExperience: Int
+  user: User
+  willpower: Int
+  willpowerDamage: Int
+}
+
+type CharacterAttribute implements Node {
+  attribute: Attribute
+
+  """The ID of an object"""
+  id: ID!
+  value: Int
+}
+
+input CharacterAttributeRequest {
+  attributeId: ID!
+  characterId: ID!
+  value: Int!
+}
+
+type CharacterAvatar implements Node {
+  avatar: String
+
+  """The ID of an object"""
+  id: ID!
+}
+
+type CharacterAvatarResponse {
+  avatar: CharacterAvatar
+  character: Character
+}
+
+type CharacterChatAvatar implements Node {
+  chatAvatar: String
+
+  """The ID of an object"""
+  id: ID!
+}
+
+type CharacterChatAvatarResponse {
+  character: Character
+  chatAvatar: CharacterChatAvatar
+}
+
+input CharacterCreationRequest {
+  avatar: String
+  biography: String!
+  chatAvatar: String
+  clanId: String!
+  description: String!
+  isNpc: Int
+  name: String!
+}
+
+input CharacterFinalizationRequest {
+  advantages: String!
+  convictions: String
+  disciplinePowers: String
+  notes: String
+  predatorTypeId: ID
+  specialties: String
+}
+
+type CharacterStats {
+  advantages: [CharacterAttribute]
+  attributes: [CharacterAttribute]
+  disciplines: [CharacterAttribute]
+  id: ID
+  predatorType: PredatorType
+}
+
+enum ChatCommand {
+  DELETE
+  INSERT
+}
+
+input ChatDiceEntryRequest {
+  abilityId: ID
+  attributeId: ID
+  augmentAttribute: Boolean
+  characterId: ID!
+  chatMapId: ID!
+  difficulty: Int
+  forDiscipline: Boolean
+  freeThrow: Int
+  master: Boolean
+}
+
+input ChatEntryRequest {
+  characterId: ID!
+  chatMapId: ID!
+  offGame: Boolean
+  text: String!
+}
+
+type ChatLocation implements Node {
+  children: [ChatLocation]
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  image: String
+  isChat: Boolean
+  isPrivate: Boolean
+  name: String
+}
+
+type Clan implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+}
+
+input ConfirmPngInput {
+  characterId: ID!
+}
+
+type ConfirmPngPayload {
+  response: Character
+}
+
+input CreateNewPostRequest {
+  creatorCharacterId: ID
+  creatorUserId: ID!
+  forumThreadId: ID!
+  text: String
+}
+
+input CreateNewThreadRequest {
+  allowedCharacters: [ID]
+  creatorCharacterId: ID
+  creatorUserId: ID!
+  description: String
+  highlighted: Boolean
+  sectionId: ID!
+  title: String!
+}
+
+input CreateNpcInput {
+  request: CharacterCreationRequest!
+}
+
+type CreateNpcPayload {
+  character: Character
+}
+
+type CreationResult {
+  id: ID
+}
+
+type CreationTemplate implements Node {
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+}
+
+enum DamageType {
+  AGGRAVATED
+  SUPERFICIAL
+}
+
+scalar DateTime
+
+input DefineNpcStatsInput {
+  characterId: ID!
+  request: NpcStatsRequest!
+}
+
+type DefineNpcStatsPayload {
+  response: Character
+}
+
+input DeleteChatEntryInput {
+  chatEntryId: ID!
+}
+
+type DeleteChatEntryPayload {
+  result: MapChatEntry
+}
+
+input DeleteForumPostInput {
+  postId: ID!
+}
+
+type DeleteForumPostPayload {
+  result: ForumPost
+}
+
+input DeleteForumThreadInput {
+  threadId: ID!
+}
+
+type DeleteForumThreadPayload {
+  result: ForumThread
+}
+
+input DeleteHavenCharacterInput {
+  havenId: ID!
+}
+
+type DeleteHavenCharacterPayload {
+  result: Haven
+}
+
+type Discipline implements Node {
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+}
+
+type ForumPost implements Node {
+  character: Character
+  forumSection: ForumSection
+  forumThread: ForumThread
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  onGame: Boolean
+  text: String
+  updatedAt: DateTime
+  user: User
+}
+
+type ForumSection implements Node {
+  canEdit: Boolean
+  canView: Boolean
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  onGame: Boolean
+  orderType: ForumSectionOrderType
+  title: String
+  updatedAt: DateTime
+}
+
+type ForumSectionInfo {
+  hasNewPosts: Boolean
+  lastThread: ForumThread
+  section: ForumSection
+}
+
+"""The forum section default ordering"""
+enum ForumSectionOrderType {
+  """Ascending order"""
+  ASC
+
+  """Descending order"""
+  DESC
+}
+
+type ForumThread implements Node {
+  allowedCharacters: [Character]
+  creatorCharacter: Character
+  creatorUser: User
+  description: String
+  forumSection: ForumSection
+  highlighted: Boolean
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  onGame: Boolean
+  postCount: Int
+  title: String
+  updatedAt: DateTime
+}
+
+type ForumThreadInfo {
+  hasNewPosts: Boolean
+  lastPostUpdatedAt: DateTime
+  thread: ForumThread
+}
+
+input GetCharacterDomainEventsInput {
+  characterId: ID!
+}
+
+type GetCharacterDomainEventsPayload {
+  result: [HavenEvent]
+}
+
+type GetHavensPayload {
+  result: [Haven]
+}
+
+type GetResonanceTypesPayload {
+  result: [String]
+}
+
+type GetThreadsResponse {
+  threadCount: Int
+  threads: [ForumThreadInfo]
+}
+
+type GetUnresolvedEventsPayload {
+  result: [HavenEvent]
+}
+
+type Haven implements Node {
+  character: Character
+  danger: Int
+  difficulty: Int
+  groundControl: Int
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  name: String
+  ownerDifficulty: Int
+  resonance: String
+  resourcesLevel: Int
+  updatedAt: DateTime
+  x: Int
+  y: Int
+}
+
+type HavenEvent implements Node {
+  character: Character
+  controlTriggered: Boolean
+  dangerTriggered: Boolean
+  haven: Haven
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  resolved: Boolean
+  updatedAt: DateTime
+}
+
+input HealInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type HealPayload {
+  result: MapChatEntry
+}
+
+input HealWillpowerInput {
+  characterId: ID!
+  quantity: Int!
+}
+
+type HealWillpowerPayload {
+  result: String
+}
+
+input HuntInput {
+  characterId: ID!
+  havenId: ID!
+}
+
+type HuntPayload {
+  result: String
+}
+
+type LoginResponse {
+  character: Character
+  reloginToken: String
+  token: String
+  user: User
+}
+
+type MapChatEntry implements Node {
+  character: Character
+  chatMap: ChatLocation
+  command: ChatCommand
+  hide: Boolean
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  master: Boolean
+  offGame: Boolean
+  result: String
+  text: String
+}
+
+type Message implements Node {
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  modifiedAt: DateTime
+  onGame: Boolean
+  operation: String
+  read: Boolean
+  receiverCharacter: Character
+  receiverCharacterId: ID
+  receiverUser: User!
+  receiverUserId: ID!
+  senderCharacter: Character
+  senderCharacterId: ID
+  senderName: String
+  senderUser: User!
+  senderUserId: ID!
+  subject: String!
+  text: String!
+}
+
+type MessageDigest {
+  totalMessages: Int
+  unreadMessages: Int
+}
+
+type MessageNotification {
+  message: Message
+  numberUnread: Int
+}
+
+input ModifyForumPostInput {
+  postId: ID!
+  text: String!
+}
+
+type ModifyForumPostPayload {
+  result: ForumPost
+}
+
+input ModifyForumThreadInput {
+  allowedCharacters: [ID]
+  description: String!
+  highlighted: Boolean
+  threadId: ID!
+  title: String!
+}
+
+type ModifyForumThreadPayload {
+  result: ForumThread
+}
+
+input NewForumPostInput {
+  request: CreateNewPostRequest!
+}
+
+type NewForumPostPayload {
+  result: ForumPost
+}
+
+input NewForumThreadInput {
+  request: CreateNewThreadRequest!
+}
+
+type NewForumThreadPayload {
+  result: ForumThread
+}
+
+interface Node {
+  """The ID of the object."""
+  id: ID!
+}
+
+input NpcAttribute {
+  id: ID!
+  value: Int!
+}
+
+input NpcAttributesRequest {
+  attributes: [NpcAttribute]!
+}
+
+input NpcStatsRequest {
+  advantages: String!
+  bloodPotency: Int!
+  generation: Int!
+  humanity: Int!
+  notes: String
+  predatorTypeId: ID!
+  willpower: Int!
+}
+
+type PredatorType implements Node {
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+}
+
+input ResetCharacterHuntInput {
+  characterId: ID!
+}
+
+type ResetCharacterHuntPayload {
+  result: Character
+}
+
+type ResetDangerPayload {
+  result: Int
+}
+
+type ResetResonancesPayload {
+  result: Int
+}
+
+input ResolveEventInput {
+  eventId: ID!
+}
+
+type ResolveEventPayload {
+  result: HavenEvent
+}
+
+enum Role {
+  MASTER
+  USER
+}
+
+type RootMutationType {
+  addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
+  addUserToChat(request: AddUserToPrivateRequest!): ChatLocation
+  appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
+  applyDamage(input: ApplyDamageInput!): ApplyDamagePayload
+  applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
+  approveCharacter(characterId: ID!, reason: String): Boolean
+  assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
+  awake(input: AwakeInput!): AwakePayload
+  bookChatMap(chatId: ID!): ChatLocation
+  changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
+  changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
+  changeCharacterHuntDifficulty(input: ChangeCharacterHuntDifficultyInput!): ChangeCharacterHuntDifficultyPayload
+  changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
+  changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
+  changeCharacterStatus(input: ChangeCharacterStatusInput!): ChangeCharacterStatusPayload
+  changeSheetInfo(input: ChangeSheetInfoInput!): ChangeSheetInfoPayload
+  confirmPng(input: ConfirmPngInput!): ConfirmPngPayload
+  createCharacter(request: CharacterCreationRequest): Character
+  createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
+  createChatEntry(entry: ChatEntryRequest): MapChatEntry
+  createNpc(input: CreateNpcInput!): CreateNpcPayload
+  createUser(email: String!, name: String!): CreationResult
+  defineNpcStats(input: DefineNpcStatsInput!): DefineNpcStatsPayload
+  deleteAllReceivedMessage: Boolean
+  deleteAllSentMessage: Boolean
+  deleteCharacter(characterId: ID): Boolean
+  deleteChatEntry(input: DeleteChatEntryInput!): DeleteChatEntryPayload
+  deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
+  deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload
+  deleteHavenCharacter(input: DeleteHavenCharacterInput!): DeleteHavenCharacterPayload
+  deleteMessage(messageId: ID): Message
+  finalizeCharacter(characterId: ID): Character
+  heal(input: HealInput!): HealPayload
+  healWillpower(input: HealWillpowerInput!): HealWillpowerPayload
+  hunt(input: HuntInput!): HuntPayload
+  login(email: String!, password: String!, remember: Boolean!): LoginResponse
+  logout: Boolean
+  modifyForumPost(input: ModifyForumPostInput!): ModifyForumPostPayload
+  modifyForumThread(input: ModifyForumThreadInput!): ModifyForumThreadPayload
+  newForumPost(input: NewForumPostInput!): NewForumPostPayload
+  newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
+  rejectCharacter(characterId: ID!, reason: String!): Boolean
+  requestNewPassword(userEmail: String!): Boolean
+  resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
+  resetDanger: ResetDangerPayload
+  resetResonances: ResetResonancesPayload
+  resetSession: Boolean
+  resetSessionMap: Boolean
+  resolveEvent(input: ResolveEventInput!): ResolveEventPayload
+  rouseCheck(input: RouseCheckInput!): RouseCheckPayload
+  sendMessage(message: SendMessageRequest!): Message
+  setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
+  setDangerZone(input: SetDangerZoneInput!): SetDangerZonePayload
+  setForumThreadRead(input: SetForumThreadReadInput!): SetForumThreadReadPayload
+  setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
+  setHavenInfo(input: SetHavenInfoInput!): SetHavenInfoPayload
+  setMessageRead(messageId: ID): Message
+  setResonanceZone(input: SetResonanceZoneInput!): SetResonanceZonePayload
+  spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
+  switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
+  updateSessionCharacter(characterId: ID): Character
+  updateSessionMap(mapId: ID): ID
+  updateUserPassword(newPassword: String!, oldPassword: String!, repeatPassword: String!): Boolean
+  useWillpower(input: UseWillpowerInput!): UseWillpowerPayload
+}
+
+type RootQueryType {
+  allChatLocations: [ChatLocation]
+  allNpcs: [Character]
+
+  """Get all the users"""
+  allUsers: [User]
+  attributes: [Attribute]
+  availablePrivateChats: [ChatLocation]
+  charactersList: [Character]
+  clanDisciplines(clanId: ID!): [Discipline]
+  clans: [Clan]
+  creationClans: [Clan]
+  getCharacter(id: ID): Character
+  getCharacterAvatar(characterId: ID!): CharacterAvatar
+  getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar
+  getCharacterDescription(characterId: ID): Character
+  getCharacterDomainEvents(input: GetCharacterDomainEventsInput!): GetCharacterDomainEventsPayload
+  getCharacterPublicInfo(id: ID): Character
+  getCharacterStats(characterId: ID): CharacterStats
+  getCharacterStatus(characterId: ID): Character
+  getCharacterUser(characterId: ID!): User
+  getCharactersAvatar(characterIds: [ID!]): [CharacterAvatarResponse]
+  getCharactersChatAvatar(characterIds: [ID!]): [CharacterChatAvatarResponse]
+  getCreationTemplates: [CreationTemplate]
+  getForumPost(id: ID!): ForumPost
+  getForumSections: [ForumSectionInfo]
+  getForumThread(id: ID!): ForumThread
+  getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]
+  getForumThreads(characterId: ID, forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
+  getHavens: GetHavensPayload
+  getMessage(messageId: ID): Message
+  getResonanceTypes: GetResonanceTypesPayload
+  getSessionCharacter: Character
+  getUnresolvedEvents: GetUnresolvedEventsPayload
+  hasUserAccessToMap(chatId: ID): Boolean
+  hasUserAlreadyBooked: Boolean
+  isCharacterAwake(characterId: ID): Boolean
+  mainMaps: [ChatLocation]
+  map(id: ID): ChatLocation
+  mapAdminChatEntries(from: DateTime, mapId: ID, to: DateTime): [MapChatEntry]
+  mapChatEntries(mapId: ID): [MapChatEntry]
+  me: User
+  messagesDigest: MessageDigest
+  playersCharactersList: [Character]
+  predatorTypes: [PredatorType]
+  privateChatAvailableUsers: [User]
+  sectionMaps(parentId: ID): [ChatLocation]
+  sessionsList: [Session]
+  subscriptionToken: String
+  unapprovedCharactersList: [Character]
+  userEmailExists(email: String!): Boolean
+  userNameExists(name: String!): Boolean
+}
+
+type RootSubscriptionType {
+  newChatEntry(mapId: ID!, token: String!): MapChatEntry
+  newMessageNotification(token: String!): MessageNotification
+}
+
+input RouseCheckInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type RouseCheckPayload {
+  result: MapChatEntry
+}
+
+input SendMessageRequest {
+  onGame: Boolean
+  receiverCharacterId: ID
+  receiverUserId: ID
+  replyToId: ID
+  senderCharacterId: ID
+  subject: String!
+  text: String!
+}
+
+type Session {
+  character: Character
+  location: ChatLocation
+  user: User
+}
+
+input SetCharacterStatusInput {
+  characterId: ID!
+  request: SetCharacterStatusRequest!
+}
+
+type SetCharacterStatusPayload {
+  result: Character
+}
+
+input SetCharacterStatusRequest {
+  aggravatedDamage: Int
+  damage: Int
+  hunger: Int
+  stains: Int
+  willpowerDamage: Int
+}
+
+input SetDangerZoneInput {
+  havenId: ID!
+  request: SetDangerZoneRequest!
+}
+
+type SetDangerZonePayload {
+  result: Int
+}
+
+input SetDangerZoneRequest {
+  danger: Int!
+  range: Int!
+}
+
+input SetForumThreadReadInput {
+  threadId: ID!
+}
+
+type SetForumThreadReadPayload {
+  result: Boolean
+}
+
+input SetHavenCharacterInput {
+  characterId: ID!
+  havenId: ID!
+}
+
+type SetHavenCharacterPayload {
+  result: Haven
+}
+
+input SetHavenInfoInput {
+  havenId: ID!
+  request: SetHavenInfoRequest!
+}
+
+type SetHavenInfoPayload {
+  result: Haven
+}
+
+input SetHavenInfoRequest {
+  danger: Int!
+  difficulty: Int!
+  groundControl: Int!
+  ownerDifficulty: Int!
+  resonance: String
+  resourcesLevel: Int!
+}
+
+input SetResonanceZoneInput {
+  havenId: ID!
+  request: SetResonanceZoneRequest!
+}
+
+type SetResonanceZonePayload {
+  result: Int
+}
+
+input SetResonanceZoneRequest {
+  power: Int!
+  resonance: String!
+}
+
+input SpendCharacterExperienceInput {
+  attributeId: ID
+  characterId: ID!
+  customExperienceExpenditure: Int
+}
+
+type SpendCharacterExperiencePayload {
+  result: Character
+}
+
+type User implements Node {
+  email: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+  originalId: ID
+  receivedMessages: [Message]
+  role: Role
+  sentMessages: [Message]
+  sessionCharacter: Character
+  userCharacters: [Character]
+  userSessionCharacter: Character
+}
+
+input UseWillpowerInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type UseWillpowerPayload {
+  result: MapChatEntry
+}
+
