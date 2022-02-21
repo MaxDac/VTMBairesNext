@@ -102,7 +102,7 @@ export const wrapMutation = <T>(environment: IEnvironment, operation: any, varia
 
 const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: (data: any) => T) => {
     requestSubscription(
-        subscriptionEnvironment,
+        subscriptionEnvironment(),
         {
             subscription: operation,
             variables,

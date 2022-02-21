@@ -25,3 +25,4 @@ export {cache} from "./relay-environment";
 export {wrapMutation} from "./relay-utils";
 export {toMap, sortStrings} from "./utils";
 export {wrapSubscription} from "./relay-utils";
+export {getEnvironment} from "./relay-environment";

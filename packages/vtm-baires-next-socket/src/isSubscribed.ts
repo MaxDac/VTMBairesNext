@@ -1,3 +1,4 @@
+// @ts-ignore
 import {booleanize} from "@jumpn/utils-promise";
 
 import type {Disposable} from "react-relay";

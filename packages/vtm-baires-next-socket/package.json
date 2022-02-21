@@ -1,8 +1,13 @@
 {
-  "name": "vtm-baires-next-socket",
+  "name": "absinthe-socket-relay",
   "version": "1.0.0",
-  "description": "Absinthe socket for relay modern",
-  "license": "MIT",
+  "description": "Absinthe Socket Relay",
+  "module": "src/index.ts",
   "main": "src/index.ts",
-  "scripts": {}
+  "react-native": "src/index",
+  "scripts": {
+    "version": "nps version",
+    "prepack": "nps prepack"
+  },
+  "license": "MIT"
 }

@@ -1,20 +1,21 @@
+
+// @ts-ignore
 import notifierFind from "@absinthe/socket/dist/notifier/find";
-import {observe, send, unobserveOrCancel} from "@absinthe/socket";
+import subscriptions from "./subscriptions";
+import {AbsintheSocket, unobserveOrCancel, observe, send} from "@absinthe/socket";
+import {SubscribeFunction} from "relay-runtime";
+// @ts-ignore
 import {createDeferred} from "@jumpn/utils-promise";
+// @ts-ignore
 import {getOperationType} from "@jumpn/utils-graphql";
 
-import type {AbsintheSocket} from "@absinthe/socket";
-
-import subscriptions from "./subscriptions";
-import {SubscribeFunction} from "relay-runtime";
-
-const unobserveOrCancelIfNeeded = (absintheSocket, notifier, observer) => {
+const unobserveOrCancelIfNeeded = (absintheSocket: any, notifier: any, observer: any) => {
   if (notifier) {
     unobserveOrCancel(absintheSocket, notifier, observer);
   }
 };
 
-const createDisposable = (absintheSocket, {request}, observer) => ({
+const createDisposable = (absintheSocket: any, {request}: any, observer: any) => ({
   dispose: () =>
     unobserveOrCancelIfNeeded(
       absintheSocket,
@@ -23,9 +24,9 @@ const createDisposable = (absintheSocket, {request}, observer) => ({
     )
 });
 
-const onStart = deferred => notifier => deferred.resolve(notifier);
+const onStart = (deferred: any) => (notifier: any) => deferred.resolve(notifier);
 
-const onAbort = (deferred, callback) => error => {
+const onAbort = (deferred: any, callback: any) => (error: any) => {
   // callback is always defined but this is not correctly reflected in
   // SubscribeFunction
   callback && callback(error);
@@ -44,6 +45,7 @@ const createSubscriber = (
   {text: operation},
   variables,
   cacheConfig,
+  // @ts-ignore
   {onError: OnUnrecoverableError, onNext}
 ) => {
   // we need to place this logic here and not in ensureIsSubscription as if we

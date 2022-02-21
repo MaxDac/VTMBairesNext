@@ -12,19 +12,22 @@
   },
   "dependencies": {
     "@absinthe/socket": "^0.2.1",
+    "@babel/runtime": "^7.17.2",
     "@fluentui/react": "^8.55.3",
+    "@jumpn/utils-array": "^0.3.4",
+    "@jumpn/utils-composite": "^0.7.0",
+    "@jumpn/utils-graphql": "^0.6.0",
     "@jumpn/utils-promise": "^0.3.1",
     "@prefresh/utils": "^1.1.2",
-    "next": "12.1.0",
-    "next-plugin-preact": "^3.0.6",
-    "next-pwa": "^5.4.4",
+    "core-js": "^3.21.1",
+    "next": "latest",
+    "next-transpile-modules": "^9.0.0",
     "phoenix": "^1.6.6",
-    "preact": "^10.5.15",
-    "preact-render-to-string": "^5.1.19",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
+    "react": "rc",
+    "react-dom": "rc",
     "react-relay": "^13.1.1",
-    "relay-runtime": "^13.1.1"
+    "relay-runtime": "^13.1.1",
+    "zen-observable": "^0.8.15"
   },
   "devDependencies": {
     "@prefresh/next": "^1.5.2",
@@ -38,6 +41,7 @@
     "graphql": "^16.3.0",
     "graphql-cli": "^4.1.0",
     "lerna": "^4.0.0",
+    "nps": "^5.10.0",
     "relay-compiler": "^13.1.1",
     "typescript": "^4.5.5"
   }

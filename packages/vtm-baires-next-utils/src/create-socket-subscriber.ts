@@ -1,9 +1,9 @@
 import type {AbsintheSocket} from "@absinthe/socket";
-import createSubscriber from "./createSubscriber";
+import {createSubscriber} from "absinthe-socket-relay";
 import {CacheConfig, GraphQLResponse, Observable, RequestParameters, Variables} from "relay-runtime";
 import {RelayObservable} from "relay-runtime/lib/network/RelayObservable";
 
-// @absinthe/socket-relay is outdated so wrap it with a fix
+// absinthe-socket-relay is outdated so wrap it with a fix
 const createSocketSubscriber = (socket: AbsintheSocket) =>
     (request: RequestParameters, variables: Variables, cacheConfig: CacheConfig): RelayObservable<GraphQLResponse> =>
         Observable.create(sink => {

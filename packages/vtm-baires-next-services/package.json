@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "vtm-baires-next-utils": "1.0.0",
-    "vtm-baires-next-socket": "1.0.0"
+    "absinthe-socket-relay": "1.0.0"
   }
 }
