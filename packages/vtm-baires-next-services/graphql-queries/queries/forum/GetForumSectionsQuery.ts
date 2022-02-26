@@ -1,6 +1,6 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
 import {GetForumSectionsQuery, GetForumSectionsQuery$data} from "./__generated__/GetForumSectionsQuery.graphql";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 
 export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
     query GetForumSectionsQuery {

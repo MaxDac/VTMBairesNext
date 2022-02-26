@@ -1,12 +1,12 @@
-import {Session} from "vtm-baires-next-utils";
-import {post} from "vtm-baires-next-utils";
+import {post} from "vtm-baires-next-utils/index";
+import type {User} from "./data-utils";
 
 export type LoginResponse = {
-    data: Session;
+    data: User;
 };
 
 export const login = (email: string, password: string, remember: boolean): Promise<LoginResponse> =>
-    post<LoginResponse>("/login", {email, password, remember});
+    post<LoginResponse>("/Access", {email, password, remember});
 
 export const check = (): Promise<LoginResponse> => 
     post<LoginResponse>("/check", {});

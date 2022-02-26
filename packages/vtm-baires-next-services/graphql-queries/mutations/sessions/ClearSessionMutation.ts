@@ -1,5 +1,5 @@
 import {graphql, IEnvironment} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 
 const mutation = graphql`
     mutation ClearSessionMutation {

@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {HasUserAlreadyBookedQuery} from "./__generated__/HasUserAlreadyBookedQuery.graphql";
 
 export const hasUserAlreadyBookedQuery: GraphQLTaggedNode = graphql`

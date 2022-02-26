@@ -1,4 +1,4 @@
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
 
 export type HavenEvent = {

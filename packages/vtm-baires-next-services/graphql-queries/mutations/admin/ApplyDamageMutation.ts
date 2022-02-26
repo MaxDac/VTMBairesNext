@@ -1,6 +1,6 @@
 import {graphql} from "relay-runtime";
 import type {IEnvironment} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import {DamageType} from "./__generated__/ApplyDamageMutation.graphql";
 
 const mutation = graphql`

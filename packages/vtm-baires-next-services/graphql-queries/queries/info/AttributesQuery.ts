@@ -1,6 +1,6 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import type {Option} from "vtm-baires-next-utils/index";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {AttributesQuery} from "./__generated__/AttributesQuery.graphql";
 
 export const attributesQuery: GraphQLTaggedNode = graphql`
@@ -20,7 +20,7 @@ export const attributesQuery: GraphQLTaggedNode = graphql`
 
 export type AttributeTypeNames = "Attribute" | "Ability" | "Advantage" | "Discipline";
 
-export type AttributeSections = "Physical" | "Social" | "Mental";
+export type AttributeSections = "Physical" | "Social" | "Mental" | "";
 
 export type AttributeType = {
     readonly id?: string;

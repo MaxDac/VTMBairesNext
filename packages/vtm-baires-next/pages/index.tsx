@@ -1,16 +1,17 @@
-import styles from '../styles/Home.module.css'
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {clansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/ClansQuery";
 import {ClansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/ClansQuery.graphql";
-import React from "react";
+import React, {useState} from "react";
 import {attributesQuery} from "vtm-baires-next-services/graphql-queries/queries/info/AttributesQuery";
 import type {
     AttributesQuery
 } from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/AttributesQuery.graphql";
-import { Dropdown, IDropdownStyles, IDropdownOption } from '@fluentui/react';
-import { initializeIcons } from '@fluentui/font-icons-mdl2';
-
-initializeIcons();
+import {NextPage} from "next";
+import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import type {Option} from "vtm-baires-next-utils";
+import Button from "@mui/material/Button";
+import {useRouter} from "next/router";
+import {LoginRoutes} from "../base/routes";
 
 const ShowAttributes = () => {
     const data = useCustomLazyLoadQuery<AttributesQuery>(attributesQuery, {})?.attributes;
@@ -55,32 +56,31 @@ const ShowClans = () => {
     )
 }
 
-const Home = () => {
+const IndexPage: NextPage = () => {
+    const [age, setAge] = React.useState<Option<string>>('');
+    const router = useRouter();
 
-    const values: IDropdownOption[] = [
-        { id: "1", key: 1, text: "Clans" },
-        { id: "2", key: 2, text: "Attributes" }
-    ]
-
-    const dropdownStyles: Partial<IDropdownStyles> = {
-        dropdown: { width: 300 },
+    const handleChange = (event: SelectChangeEvent<Option<string>>) => {
+        setAge(event?.target?.value);
     };
 
     return (
-        <div className={styles.container}>
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
-                    <Dropdown
-                        placeholder="Select an option"
-                        label="Basic uncontrolled example"
-                        options={values}/>
-            </main>
-
-        </div>
-    )
+        <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <Select labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Age"
+                    onChange={handleChange}>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+            <Button variant="outlined" onClick={() => router.push(LoginRoutes.login)}>
+                Go to Login
+            </Button>
+        </FormControl>
+    );
 }
 
-export default Home
+export default IndexPage

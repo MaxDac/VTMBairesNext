@@ -1,7 +1,7 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {GetResonanceTypesQuery} from "./__generated__/GetResonanceTypesQuery.graphql";
-import {isNotNullNorEmpty} from "vtm-baires-next-utils/src/utils";
+import {isNotNullNorEmpty} from "vtm-baires-next-utils";
 
 export type ResonanceType = string
 

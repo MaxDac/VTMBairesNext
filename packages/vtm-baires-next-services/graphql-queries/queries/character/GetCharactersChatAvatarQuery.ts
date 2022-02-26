@@ -1,8 +1,8 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import type {Option} from "vtm-baires-next-utils/index";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {GetCharactersChatAvatarQuery} from "./__generated__/GetCharactersChatAvatarQuery.graphql";
-import {toMap} from "vtm-baires-next-utils";
+import {toMap} from "vtm-baires-next-utils/index";
 
 export const getCharactersChatAvatarQuery: GraphQLTaggedNode = graphql`
     query GetCharactersChatAvatarQuery($characterIds: [ID!]) {

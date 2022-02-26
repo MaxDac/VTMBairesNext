@@ -38,7 +38,7 @@ const manageResponseError = (reason: any) => {
 
 const postToApi = (onUnauthorized: () => void) =>
     ({text}: RequestParameters, variables: Variables): Promise<GraphQLResponse> =>
-        fetch( window.document.location.origin + "/api", {
+        fetch( "http://localhost:4000/api", {
             method: 'POST',
             headers: { 'content-type': 'application/json;charset=UTF-8' },
             body: JSON.stringify({
@@ -54,11 +54,6 @@ const fetchGraphQL = (onUnauthorized: () => void) => {
     return async (params: RequestParameters, variables: Variables) => {
         const response: any = await postToApi(onUnauthorized)(params, variables);
         console.debug("response graph ql", response);
-
-        for (const {id, name} of response.data.clans)
-        {
-            console.debug(`${id}: ${name}`)
-        }
 
         return response;
     }

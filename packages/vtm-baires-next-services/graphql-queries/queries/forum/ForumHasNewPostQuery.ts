@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {ForumHasNewPostQuery} from "./__generated__/ForumHasNewPostQuery.graphql";
 
 export const forumHasNewPostQuery: GraphQLTaggedNode = graphql`

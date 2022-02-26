@@ -1,5 +1,5 @@
 import {graphql} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`

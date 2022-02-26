@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 // This redundant type definition is due to the fact that the auto-generated query doesn't extract the type of the post,
 // but rather it represent the post type directly in the array definition.

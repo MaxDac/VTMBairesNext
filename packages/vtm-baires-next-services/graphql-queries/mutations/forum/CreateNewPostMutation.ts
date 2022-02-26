@@ -1,8 +1,8 @@
 import {graphql} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {IEnvironment} from "relay-runtime";
 import type {CreateNewPostMutation$data, CreateNewPostRequest} from "./__generated__/CreateNewPostMutation.graphql";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 const mutation = graphql`
     mutation CreateNewPostMutation($request: CreateNewPostRequest!) {

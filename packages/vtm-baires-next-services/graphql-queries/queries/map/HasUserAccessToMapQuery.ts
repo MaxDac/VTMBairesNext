@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {HasUserAccessToMapQuery} from "./__generated__/HasUserAccessToMapQuery.graphql";
 
 export const hasUserAccessToMapQuery: GraphQLTaggedNode = graphql`

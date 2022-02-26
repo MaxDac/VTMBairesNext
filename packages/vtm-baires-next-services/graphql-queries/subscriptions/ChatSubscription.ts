@@ -1,6 +1,6 @@
 import {graphql, Observable} from "relay-runtime";
 import {ChatEntry} from "../data-utils";
-import {wrapSubscription} from "vtm-baires-next-utils";
+import {wrapSubscription} from "vtm-baires-next-utils/index";
 
 const subscription = graphql`
     subscription ChatSubscription($mapId: ID!, $token: String!) {

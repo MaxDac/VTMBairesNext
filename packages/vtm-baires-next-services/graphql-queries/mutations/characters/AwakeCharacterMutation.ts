@@ -1,7 +1,7 @@
 import {graphql} from "relay-runtime";
 import type {IEnvironment} from "relay-runtime";
 import type {AwakeCharacterMutation$data} from "./__generated__/AwakeCharacterMutation.graphql";
-import {wrapMutation} from "../../../src";
+import {wrapMutation} from "vtm-baires-next-utils";
 
 const mutation = graphql`
     mutation AwakeCharacterMutation($characterId: ID!) {

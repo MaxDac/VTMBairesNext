@@ -1,6 +1,6 @@
 import {graphql} from "relay-runtime";
 import type {IEnvironment} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {FinalizeCharacterMutation$data} from "./__generated__/FinalizeCharacterMutation.graphql";
 
 const finalizeCharacterMutation = graphql`

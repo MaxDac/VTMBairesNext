@@ -4,7 +4,7 @@ import type {
     ChangeCharacterExperienceInput,
     ChangeCharacterExperienceMutation$data
 } from "./__generated__/ChangeCharacterExperienceMutation.graphql";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 
 const mutation = graphql`
     mutation ChangeCharacterExperienceMutation($input: ChangeCharacterExperienceInput!) {

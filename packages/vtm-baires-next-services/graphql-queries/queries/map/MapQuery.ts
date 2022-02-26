@@ -1,9 +1,9 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {convertToMap} from "../../data-utils";
 import type {Map} from "../../data-utils";
 import {MapQuery} from "./__generated__/MapQuery.graphql";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 const mapQuery: GraphQLTaggedNode = graphql`
     query MapQuery($id: ID!) {

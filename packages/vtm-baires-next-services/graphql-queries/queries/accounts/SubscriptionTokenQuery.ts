@@ -1,7 +1,7 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
 import {useRelayEnvironment} from "react-relay";
 import {useEffect, useRef, useState} from "react";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 import {wrapQuery} from "vtm-baires-next-utils/src/relay-utils";
 import {
     SubscriptionTokenQuery$data,

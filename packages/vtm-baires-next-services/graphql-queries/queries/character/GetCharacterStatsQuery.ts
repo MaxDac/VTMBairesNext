@@ -1,8 +1,8 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 import {AttributeTypeNames} from "../info/AttributesQuery";
-import {sortStrings} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {sortStrings} from "vtm-baires-next-utils/index";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {GetCharacterStatsQuery} from "./__generated__/GetCharacterStatsQuery.graphql";
 
 export const getCharacterStatsQuery: GraphQLTaggedNode = graphql`

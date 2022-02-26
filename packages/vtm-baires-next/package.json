@@ -11,7 +11,8 @@
   "dependencies": {
     "vtm-baires-next-utils": "1.0.0",
     "vtm-baires-next-services": "1.0.0",
-    "absinthe-socket-relay": "1.0.0"
+    "absinthe-socket-relay": "1.0.0",
+    "vtm-baires-next-components": "1.0.0"
   },
   "proxy": "http://localhost:4000"
 }

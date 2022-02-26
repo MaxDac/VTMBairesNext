@@ -1,7 +1,7 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {ClanDisciplinesQuery, ClanDisciplinesQuery$data} from "./__generated__/ClanDisciplinesQuery.graphql";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 export const clanDisciplinesQuery: GraphQLTaggedNode = graphql`
     query ClanDisciplinesQuery($clanId: ID!) {

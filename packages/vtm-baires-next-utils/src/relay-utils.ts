@@ -15,7 +15,7 @@ import {
     requestSubscription, useLazyLoadQuery
 } from "react-relay";
 
-import {Option, Options} from "./index";
+import {AlertInfo, AlertType, Option, Options} from "../index";
 import {Sink} from "relay-runtime/lib/network/RelayObservable";
 
 export type GraphqlErrorLocation = {
@@ -33,7 +33,7 @@ export type GraphqlErrorMessage = {
     errors: GraphqlError[];
 }
 
-export const parseGraphqlMessage = (error: GraphqlErrorMessage, defaultError?: string | undefined): string => {
+export const parseGraphqlMessage = (error: GraphqlErrorMessage, defaultError?: Option<string>): string => {
     if (error && error.errors && error.errors.map) {
         return error?.errors
             .map(({ message }) => message)
@@ -203,3 +203,44 @@ export const useCustomLazyLoadQueryNoVar = <TQuery extends OperationType>(
     },
 ): TQuery['response'] =>
     useLazyLoadQuery<TQuery>(gqlQuery, {}, options);
+
+/**
+ * Tries to translate english error message to italian.
+ * This function is called in the notification system to try to translate back end error messages.
+ * @param error The error message.
+ * @return {string} The translated error message if the translation succeeded, the error itself otherwise.
+ */
+export const tryTranslateError = (error: string): string => {
+    if (error === "name: has already been taken") {
+        return "Il nome è già stato preso, prova a mettere anche il cognome del personaggio";
+    }
+
+    return error;
+};
+
+export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: (info: AlertInfo) => void, args?: Option<{
+    successMessage?: string,
+    errorMessage?: string,
+    onCompleted?: () => void
+}>) => {
+    mutation()
+        .then(_result => {
+            showNotification({
+                type: AlertType.Success,
+                message: args?.successMessage ?? "La modifica è stata effettuata con successo"
+            });
+        })
+        .catch(errors => {
+            console.error("An error occoured while performing the mutation: ", errors);
+            showNotification({
+                type: AlertType.Error,
+                message: args?.errorMessage ?? "La modifica non ha avuto successo, contatta un master per ulteriori informazioni.",
+                graphqlErrors: errors
+            });
+        })
+        .finally(() => {
+            if (args?.onCompleted != null) {
+                args.onCompleted();
+            }
+        });
+};

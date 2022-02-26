@@ -1,5 +1,5 @@
 import {graphql, Observable} from "relay-runtime";
-import {wrapSubscription} from "vtm-baires-next-utils";
+import {wrapSubscription} from "vtm-baires-next-utils/index";
 import {MessageNotificationSubscription$data} from "./__generated__/MessageNotificationSubscription.graphql";
 
 const subscription = graphql`

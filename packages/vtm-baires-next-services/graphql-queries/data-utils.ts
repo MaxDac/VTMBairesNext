@@ -1,5 +1,7 @@
 import type {Attribute, AttributeTypeNames} from "./queries/info/AttributesQuery";
-import {Option, sortStrings} from "vtm-baires-next-utils";
+import {sortStrings} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils";
+import {Character} from "./queries/character/GetCharacterCompleteQuery";
 
 const sortForAttributes = (a: Attribute, b: Attribute): number => sortStrings(a.id, b.id);
 
@@ -108,24 +110,3 @@ export const convertToMap: (amorphousObject: any) => Map = ({
     isChat,
     isPrivate
 } as Map);
-
-export type SessionCharacter = {
-    id?: Option<string>;
-    name?: Option<string>;
-    approved?: Option<boolean>;
-    clan?: Option<{
-        id?: Option<string>;
-        name?: Option<string>;
-    }>;
-};
-
-export type SessionLocation = {
-    id?: Option<string>;
-    name?: Option<string>;
-};
-
-export type Session = {
-    user: User,
-    character?: Option<SessionCharacter>,
-    location?: Option<SessionLocation>
-};

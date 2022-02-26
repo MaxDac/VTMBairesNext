@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 export type Haven = {
     readonly id: string;

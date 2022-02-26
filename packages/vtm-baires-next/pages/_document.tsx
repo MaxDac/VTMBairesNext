@@ -1,111 +1,93 @@
-import * as React from "react";
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-import {Stylesheet, resetIds} from "@fluentui/react";
+import * as React from 'react';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import createEmotionServer from '@emotion/server/create-instance';
+import theme from '../base/theme';
+import createEmotionCache from '../base/createEmotionCache';
 
-const stylesheet = Stylesheet.getInstance();
-//
-// function Document(props: any) {
-//     return (
-//         <Html>
-//             <Head>
-//                 <meta charSet="utf-8" />
-//                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-//                 <meta name="theme-color" content="#000000" />
-//                 <meta name="description" content="Description" />
-//                 <meta name="keywords" content="Keywords" />
-//
-//                 <link rel="manifest" href="/manifest.json" />
-//                 <link
-//                     href="/icons/favicon-16x16.png"
-//                     rel="icon"
-//                     type="image/png"
-//                     sizes="16x16"
-//                 />
-//                 <link
-//                     href="/icons/favicon-32x32.png"
-//                     rel="icon"
-//                     type="image/png"
-//                     sizes="32x32"
-//                 />
-//                 <link rel="apple-touch-icon" href="/apple-icon.png"></link>
-//                 <meta name="theme-color" content="#317EFB" />
-//
-//                 <meta property="og:title" content="VTM: Baires" />
-//                 <meta property="og:type" content="application/react-web" />
-//                 <meta property="og:url" content="https://vtmbaires.eu" />
-//                 <meta property="og:image" content="https://vtmbaires.eu/logo192.png" />
-//                 <style type="text/css" dangerouslySetInnerHTML={{ __html: props?.styleTags }} />
-//
-//                 <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `
-//                     window.FabricConfig = window.FabricConfig || {};
-//                     window.FabricConfig.serializedStylesheet = ${props?.serializedStylesheet};
-//                   ` }} />
-//             </Head>
-//             <body>
-//                 <Main />
-//                 <NextScript />
-//             </body>
-//         </Html>
-//     )
-// }
-//
-// Document.getInitialProps = (ctx: any) => {
-//     resetIds();
-//     return { styleTags: stylesheet.getRules(true), serializedStylesheet: stylesheet.serialize() }
-// }
-//
-// export default Document
+const MyDocument = (props: any) => (
+    <Html lang="en">
+        <Head>
+            <meta charSet="utf-8"/>
+            <link rel="icon" href="/favicon.ico"/>
+            <meta name="theme-color" content="#000000"/>
+            <meta
+                name="description"
+                content="Vampire the Masquerade - Buenos Aires by Night"
+            />
+            <link rel="apple-touch-icon" href="/logo192.png"/>
+            {/*<link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>*/}
 
-export default class CustomDocument extends Document {
-    static getInitialProps({renderPage}: any) {
-        resetIds();
-        const page = renderPage((App: any) => (props: any) => <App {...props} />);
-        return { ...page, styleTags: stylesheet.getRules(true), serializedStylesheet: stylesheet.serialize() };
-    }
+            <meta property="og:title" content="VTM: Baires"/>
+            <meta property="og:type" content="application/react-web"/>
+            <meta property="og:url" content="https://vtmbaires.eu"/>
+            <meta property="og:image" content="https://vtmbaires.eu/logo192.png"/>
+            {/* Inject MUI styles first to match with the prepend: true configuration. */}
+            {(props as any)?.emotionStyleTags}
+        </Head>
+        <body>
+        <Main />
+        <NextScript />
+        </body>
+    </Html>
+);
 
-    render() {
-        // @ts-ignore
-        return (
-            <Html>
-                <Head>
-                    <meta charSet="utf-8" />
-                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                    <meta name="theme-color" content="#000000" />
-                    <meta name="description" content="Description" />
-                    <meta name="keywords" content="Keywords" />
+// `getInitialProps` belongs to `_document` (instead of `_app`),
+// it's compatible with static-site generation (SSG).
+MyDocument.getInitialProps = async (ctx: any) => {
+    // Resolution order
+    //
+    // On the server:
+    // 1. app.getInitialProps
+    // 2. page.getInitialProps
+    // 3. document.getInitialProps
+    // 4. app.render
+    // 5. page.render
+    // 6. document.render
+    //
+    // On the server with error:
+    // 1. document.getInitialProps
+    // 2. app.render
+    // 3. page.render
+    // 4. document.render
+    //
+    // On the client
+    // 1. app.getInitialProps
+    // 2. page.getInitialProps
+    // 3. app.render
+    // 4. page.render
 
-                    <link rel="manifest" href="/manifest.json" />
-                    <link
-                        href="/icons/favicon-16x16.png"
-                        rel="icon"
-                        type="image/png"
-                        sizes="16x16"
-                    />
-                    <link
-                        href="/icons/favicon-32x32.png"
-                        rel="icon"
-                        type="image/png"
-                        sizes="32x32"
-                    />
-                    <link rel="apple-touch-icon" href="/apple-icon.png"></link>
-                    <meta name="theme-color" content="#317EFB" />
+    const originalRenderPage = ctx.renderPage;
 
-                    <meta property="og:title" content="VTM: Baires" />
-                    <meta property="og:type" content="application/react-web" />
-                    <meta property="og:url" content="https://vtmbaires.eu" />
-                    <meta property="og:image" content="https://vtmbaires.eu/logo192.png" />
-                    <style type="text/css" dangerouslySetInnerHTML={{ __html: this.props?.styleTags }} />
+    // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
+    // However, be aware that it can have global side effects.
+    const cache = createEmotionCache();
+    const { extractCriticalToChunks } = createEmotionServer(cache);
 
-                    <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `
-                        window.FabricConfig = window.FabricConfig || {};
-                        window.FabricConfig.serializedStylesheet = ${this.props?.serializedStylesheet};
-                      ` }} />
-                </Head>
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </Html>
-        )
-    }
-}
+    ctx.renderPage = () =>
+        originalRenderPage({
+            enhanceApp: (App: any) =>
+                function EnhanceApp(props: any) {
+                    return <App emotionCache={cache} {...props} />;
+                },
+        });
+
+    const initialProps = await Document.getInitialProps(ctx);
+    // This is important. It prevents emotion to render invalid HTML.
+    // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
+    const emotionStyles = extractCriticalToChunks(initialProps.html);
+    const emotionStyleTags: any = emotionStyles.styles.map((style) => (
+        <style
+            data-emotion={`${style.key} ${style.ids.join(' ')}`}
+            key={style.key}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: style.css }}
+        />
+    ));
+
+    return {
+        ...initialProps,
+        emotionStyleTags: emotionStyleTags,
+    };
+};
+
+export default MyDocument

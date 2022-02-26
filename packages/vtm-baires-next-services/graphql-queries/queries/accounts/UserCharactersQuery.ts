@@ -1,7 +1,7 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {Option, Options} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
-import {UserCharactersQuery$data, UserCharactersQuery$variables} from "./__generated__/UserCharactersQuery.graphql";
+import {Option, Options} from "vtm-baires-next-utils/index";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {UserCharactersQuery} from "./__generated__/UserCharactersQuery.graphql";
 
 export const userCharactersQuery: GraphQLTaggedNode = graphql`
     query UserCharactersQuery {
@@ -33,7 +33,7 @@ export type UserCharacter = {
 }
 
 export const useUserCharactersQuery = (reloadCount?: number): UserCharacter[] => {
-    const result = useCustomLazyLoadGraphQLTaggedNode(
+    const result = useCustomLazyLoadQuery<UserCharactersQuery>(
         userCharactersQuery, {}, {
             fetchPolicy: "store-and-network",
             fetchKey: reloadCount ?? 0

@@ -1,16 +1,74 @@
-html,
+@font-face {
+  font-family: "Disturbed";
+  src: local("Punktype"), url("/fonts/punktype.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ThroughTheNight";
+  src: local("ThroughTheNight"), url("/fonts/through-the-night.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DefaultTypewriter";
+  src: local("DefaultTypewriter"), url("/fonts/veteran-typewriter.ttf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chat";
+  src: local("Chat"), url("/fonts/chat.ttf");
+  font-display: swap;
+}
+
 body {
-  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a:hover {
+  color: #E93939;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: #C91919;
 }
 
-* {
-  box-sizing: border-box;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+.shadowed-text {
+  text-shadow: 5px 5px 5px black;
+}
+
+.MuiSpeedDialAction-fab {
+  background-color: #C91919;
+}
+
+/* This style is needed by the react markdown. Apply this class to the react markdown to avoid p margin */
+div.no-padding-paragraph p {
+  margin: 0;
+}
+
+@keyframes opacityAppear {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
 }

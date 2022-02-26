@@ -1,11 +1,11 @@
 import {graphql} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {
     CreateNewThreadMutation$data,
     CreateNewThreadRequest
 } from "./__generated__/CreateNewThreadMutation.graphql";
 import type {IEnvironment} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 const mutation = graphql`
     mutation CreateNewThreadMutation($request: CreateNewThreadRequest!) {

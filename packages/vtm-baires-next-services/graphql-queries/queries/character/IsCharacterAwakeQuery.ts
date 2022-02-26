@@ -1,5 +1,5 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {IsCharacterAwakeQuery} from "./__generated__/IsCharacterAwakeQuery.graphql";
 
 export const isCharacterAwakeQuery: GraphQLTaggedNode = graphql`

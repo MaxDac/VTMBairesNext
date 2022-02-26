@@ -1,9 +1,9 @@
 import {graphql} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {IEnvironment} from "relay-runtime";
 import type {SpendCharacterExperienceInput} from "./__generated__/SpendCharacterExperienceMutation.graphql";
 import type {Character} from "../../queries/character/GetCharacterCompleteQuery";
-import type {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils/index";
 
 const mutation = graphql`
     mutation SpendCharacterExperienceMutation($input: SpendCharacterExperienceInput!) {

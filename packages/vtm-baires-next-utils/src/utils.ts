@@ -1,5 +1,5 @@
-import type {Option} from "./index";
-import {Options} from "./index";
+import type {Option} from "../index";
+import {Options} from "../index";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -55,16 +55,6 @@ export const toMap = <TKey, TValue>(arr: Option<Option<[Option<TKey>, Option<TVa
 
         return map;
     }, new Map<TKey, TValue>());
-
-export const getMapKeys = <TKey, TValue>(map: Map<TKey, TValue>): Array<TKey> => {
-    const ret = [];
-
-    for (const key of Array.from(map.keys())) {
-        ret.push(key);
-    }
-
-    return ret;
-};
 
 export const filterNulls = <T>(arr: Option<T>[]): T[] =>
     arr.reduce((acc, p) => {
@@ -168,8 +158,10 @@ export const getInitials = (name: string): string => {
  * @return {string} The result text, with the substituted part.
  */
 export const replaceAll = (text: string, what: string, withWhat: string): string => {
-    // $FlowFixMe
-    return text.replaceAll(what, withWhat);
+    const escapeRegExp = (s: string) =>
+        s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
+    return text.replace(new RegExp(escapeRegExp(what), 'g'), () => withWhat);
 }
 
 /**
@@ -212,7 +204,7 @@ const parseComparisonStrings = (first: Option<string>, second: Option<string>, o
  * @param options The comparison options
  * @return {number} 1 if the first string is "greater" than the second, 0 if it's equal, -1 if it's less than the second.
  */
-export const orderAlphabetically = (first: Option<string>, second: Option<string>, options: Option<ComparisonOptions>): number => {
+export const orderAlphabetically = (first: Option<string>, second: Option<string>, options?: Option<ComparisonOptions>): number => {
     const [f, s] = parseComparisonStrings(first, second, options);
 
     return f > s
@@ -227,7 +219,7 @@ export const orderAlphabetically = (first: Option<string>, second: Option<string
  * @param options The comparison options
  * @return {boolean} True if the two strings are equal, False otherwise.
  */
-export const matchNames = (name: Option<string>, match: Option<string>, options: Option<ComparisonOptions>): boolean => {
+export const matchNames = (name: Option<string>, match: Option<string>, options?: Option<ComparisonOptions>): boolean => {
     const [n, m] = parseComparisonStrings(name, match, options);
     return n.indexOf(m) !== -1;
 };

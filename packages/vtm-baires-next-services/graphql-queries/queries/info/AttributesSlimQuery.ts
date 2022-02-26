@@ -1,17 +1,13 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { attributesDefaultSortFunction } from "./AttributesQuery";
 import type {
   Attribute,
   AttributeSections,
   AttributeTypeNames,
 } from "./AttributesQuery";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import type {
-  AttributesSlimQuery$data,
-  AttributesSlimQueryVariables,
-} from "./__generated__/AttributesSlimQuery.graphql";
-import { emptyExactObject, toNotNullArray } from "../../../_base/utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {AttributesSlimQuery} from "./__generated__/AttributesSlimQuery.graphql";
+import {toNotNullArray} from "vtm-baires-next-utils/src/utils";
 
 export const attributesSlimQuery: GraphQLTaggedNode = graphql`
     query AttributesSlimQuery {
@@ -27,8 +23,8 @@ export const attributesSlimQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-const useAttributesSlimQuery = (): Array<Attribute> => {
-    const attributes = useCustomLazyLoadQuery(attributesSlimQuery, {})?.attributes;
+const useAttributesSlimQuery = (): Attribute[] => {
+    const attributes = useCustomLazyLoadQuery<AttributesSlimQuery>(attributesSlimQuery, {})?.attributes;
 
     const mappedAttributes: Array<Attribute> = toNotNullArray(attributes)
         .map(x => ({
@@ -36,8 +32,8 @@ const useAttributesSlimQuery = (): Array<Attribute> => {
             name: x.name,
             order: x.order,
             attributeType: {
-                name: ((x.attributeType?.name: any): AttributeTypeNames),
-                section: ((x.attributeType?.section: any): AttributeSections)
+                name: x.attributeType?.name as AttributeTypeNames,
+                section: x.attributeType?.section as AttributeSections
             }
         }));
 

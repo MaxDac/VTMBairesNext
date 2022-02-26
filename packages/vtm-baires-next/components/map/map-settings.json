@@ -1,0 +1,55 @@
+[{
+    "title": "Centro",
+    "name": "Centro",
+    "shape": "poly",
+    "coords": [463, 142, 445, 143, 433, 151, 423, 169, 400, 192, 380, 202, 355, 186, 337, 202, 230, 214, 214, 258, 219, 352, 307, 430, 323, 410, 342, 346, 356, 321, 369, 309, 384, 310, 399, 296, 548, 270, 581, 301, 584, 294, 537, 182],
+    "fillColor": "#1919C980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}, {
+    "title": "Palermo",
+    "name": "Palermo",
+    "shape": "poly",
+    "coords": [469, 142, 444, 149, 385, 205, 362, 190, 344, 203, 236, 216, 277, 102, 351, 62],
+    "fillColor": "#19791980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}, {
+    "title": "Provincia",
+    "name": "Provincia",
+    "shape": "poly",
+    "coords": [353, 62, 325, 4, 3, 3, 5, 441, 27, 375, 61, 374, 107, 420, 159, 435, 245, 377, 220, 352, 218, 258, 277, 101],
+    "fillColor": "#C9191980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}, {
+    "title": "La Boca",
+    "name": "La Boca",
+    "shape": "poly",
+    "coords": [581, 304, 553, 270, 404, 297, 388, 311, 373, 310, 355, 327, 324, 416, 310, 429, 364, 480, 437, 374, 457, 364, 469, 367, 501, 373, 515, 361, 539, 359, 547, 344, 572, 329, 567, 317],
+    "fillColor": "#C9C91980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}, {
+    "title": "Quilmes",
+    "name": "Quilmes",
+    "shape": "poly",
+    "coords": [580, 309, 586, 327, 581, 345, 607, 386, 626, 399, 712, 436, 742, 462, 770, 485, 727, 510, 338, 509, 364, 477, 435, 374, 459, 364, 494, 373, 512, 370, 518, 362, 541, 360, 553, 346, 572, 331, 572, 319],
+    "fillColor": "#5919A980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}, {
+    "title": "Chat Private",
+    "name": "Chat Private",
+    "shape": "poly",
+    "coords": [5, 441, 27, 375, 61, 374, 107, 420, 159, 435, 245, 377, 364, 480, 338, 509, 5, 509, 5, 441],
+    "fillColor": "#C9C9C980",
+    "strokeColor": "black",
+    "lineWidth": 2,
+    "preFillColor": "#59191940"
+}]

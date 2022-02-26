@@ -1,6 +1,6 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
-import type {Option} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
+import type {Option} from "vtm-baires-next-utils/index";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {GetAllNpcsQuery} from "./__generated__/GetAllNpcsQuery.graphql";
 
 export const getAllNpcsQuery: GraphQLTaggedNode = graphql`

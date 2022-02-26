@@ -1,5 +1,5 @@
 import {graphql} from "relay-runtime";
-import {wrapMutation} from "vtm-baires-next-utils";
+import {wrapMutation} from "vtm-baires-next-utils/index";
 import type {IEnvironment} from "relay-runtime";
 import type {ResetHuntMutation$data} from "./__generated__/ResetHuntMutation.graphql";
 

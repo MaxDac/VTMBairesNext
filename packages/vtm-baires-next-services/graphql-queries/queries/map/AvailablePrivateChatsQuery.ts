@@ -1,8 +1,8 @@
 import {graphql, GraphQLTaggedNode} from "relay-runtime";
 import type {Option} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
-import {castNotNull} from "vtm-baires-next-utils/src/utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {AvailablePrivateChatsQuery} from "./__generated__/AvailablePrivateChatsQuery.graphql";
+import {castNotNull} from "vtm-baires-next-utils/src/utils";
 
 export const availablePrivateChatsQuery: GraphQLTaggedNode = graphql`
     query AvailablePrivateChatsQuery {
