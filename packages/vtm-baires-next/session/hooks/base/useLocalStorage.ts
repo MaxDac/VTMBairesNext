@@ -7,37 +7,37 @@ export type LocalStorageHookProps<T> = {
     setStoredValue: (value: Option<T>) => void;
 }
 
-const useLocalStorage = <T>(key: StorageKey): LocalStorageHookProps<T> => {
-    const getStoredValue = () => {
-        const storage = tryGetStorage();
+export const getStoredValue = <T>(key: StorageKey) => {
+    const storage = tryGetStorage();
 
-        if (storage == null) {
-            return null;
-        }
-
-        const serializedItem = storage.getItem(key);
-
-        if (serializedItem == null || serializedItem === "") {
-            return null;
-        }
-
-        return JSON.parse(serializedItem) as T;
+    if (storage == null) {
+        return null;
     }
 
-    const setStoredValue = (value: Option<T>) => {
-        const storage = tryGetStorage();
+    const serializedItem = storage.getItem(key);
 
-        if (storage == null) {
-            return;
-        }
+    if (serializedItem == null || serializedItem === "") {
+        return null;
+    }
 
-        storage.removeItem(key);
-        storage.setItem(key, JSON.stringify(value));
-    };
+    return JSON.parse(serializedItem) as T;
+}
 
+export const setStoredValue = <T>(key: StorageKey, value: Option<T>) => {
+    const storage = tryGetStorage();
+
+    if (storage == null) {
+        return;
+    }
+
+    storage.removeItem(key);
+    storage.setItem(key, JSON.stringify(value));
+};
+
+const useLocalStorage = <T>(key: StorageKey): LocalStorageHookProps<T> => {
     return {
-        getStoredValue,
-        setStoredValue
+        getStoredValue: () => getStoredValue(key),
+        setStoredValue: (value: Option<T>) => setStoredValue(key, value)
     };
 }
 

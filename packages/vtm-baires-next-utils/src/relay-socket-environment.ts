@@ -15,7 +15,7 @@ const getDocumentLocationHost = (): string =>
 
 const buildWebSocketUrl = () => {
     // if (process.env.NODE_ENV === "development") {
-        return `ws://localhost:4000/socket`;
+        return `ws://localhost:3000/socket`;
     // }
     //
     // const host = getDocumentLocationHost();

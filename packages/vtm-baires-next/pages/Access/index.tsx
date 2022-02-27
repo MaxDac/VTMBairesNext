@@ -12,7 +12,6 @@ import {AlertType} from "vtm-baires-next-utils";
 import {login} from "vtm-baires-next-services/graphql-queries/login-service";
 import LoginLayout from "../../components/layouts/LoginLayout";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import useCharacterSession from "../../session/hooks/useCharacterSession";
 import useSession from "../../session/hooks/useSession";
 import {GuideRoutes, LoginRoutes, Routes} from "../../base/routes";
 import Box from "@mui/material/Box";
@@ -34,7 +33,6 @@ const Index = (): JSX.Element => {
     const router = useRouter();
     const theme = useTheme();
     const [,setUserSession] = useSession();
-    const [character,] = useCharacterSession();
 
     const {enqueueSnackbar} = useCustomSnackbar()
     const {startWait, stopWait} = useWait()
@@ -74,6 +72,7 @@ const Index = (): JSX.Element => {
 
         login(email, password, true)
             .then(res => {
+                console.debug("login call result: ", res);
                 stopWait();
                 setUserSession(res.data);
                 setTimeout(() => {
@@ -81,9 +80,8 @@ const Index = (): JSX.Element => {
                 }, 200);
                 return res;
             })
-            // This call is to pre-populate the cache
-            .then((_: any) => character)
             .catch((errors: any) => {
+                console.error("error call result: ", errors);
                 stopWait();
                 enqueueSnackbar({
                     type: AlertType.Error,

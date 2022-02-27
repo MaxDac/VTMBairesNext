@@ -8,7 +8,7 @@ export const LoginRoutes = {
 }
 
 export const Routes = {
-    main: "/",
+    main: "/Main",
     creation1: "/Creation/1",
     creation2: "/Creation/2",
     creation3: "/Creation/3",

@@ -1,86 +1,50 @@
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
-import {clansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/ClansQuery";
-import {ClansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/ClansQuery.graphql";
-import React, {useState} from "react";
-import {attributesQuery} from "vtm-baires-next-services/graphql-queries/queries/info/AttributesQuery";
-import type {
-    AttributesQuery
-} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/AttributesQuery.graphql";
-import {NextPage} from "next";
-import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import type {Option} from "vtm-baires-next-utils";
-import Button from "@mui/material/Button";
+import React, {ReactElement} from 'react';
+import { useEffect } from "react";
+import { Box } from '@mui/system';
+import Typography from '@mui/material/Typography';
 import {useRouter} from "next/router";
-import {LoginRoutes} from "../base/routes";
+import {LoginRoutes, Routes} from "../base/routes";
+import useSession from "../session/hooks/useSession";
+import {CenteredBox} from "vtm-baires-next-components";
 
-const ShowAttributes = () => {
-    const data = useCustomLazyLoadQuery<AttributesQuery>(attributesQuery, {})?.attributes;
+const SplashScreen = (): ReactElement => {
+    const [user,] = useSession()
+    const router = useRouter()
 
-    const showAttributes = () => {
-        const elements: any[] = [];
-
-        for (const attribute of Array.from(data ?? []))
-        {
-            elements.push(<li>{attribute?.name}</li>);
+    useEffect(() => {
+        if (user?.id != null) {
+            router.push(Routes.main);
         }
-
-        return elements;
-    }
-
-    return (
-        <>
-            {showAttributes()}
-        </>
-    )
-}
-
-const ShowClans = () => {
-    const data = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans ?? [];
-
-    const showClans = () => {
-        const elements: any[] = [];
-
-        for (const clan of data) {
-            elements.push(<li key={clan?.id}>{clan?.name}</li>);
+        else {
+            router.push(LoginRoutes.login);
         }
+    });
 
-        return elements;
-    }
+    const handleLogoClick = () => router.push(LoginRoutes.login);
 
     return (
-        <>
-            <ul>
-                {showClans()}
-            </ul>
-        </>
+        <Box onClick={_ => handleLogoClick()}>
+            <CenteredBox innerBoxSx={{
+                maxWidth: "237px",
+                height: "70vh",
+                background: `url("/Camarilla.webp") no-repeat`}} isBodyChild={true}>
+                <CenteredBox isBodyChild={false}>
+                    <Typography sx={{
+                        fontFamily: 'DefaultTypewriter',
+                        color: "#C92929",
+                        fontSize: "24px",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        textShadow: "2px 2px black, -2px 2px black"
+                    }}>
+                        Buenos Aires by Night<br />
+                        <br />
+                        Clicca per accedere
+                    </Typography>
+                </CenteredBox>
+            </CenteredBox>
+        </Box>
     )
-}
+};
 
-const IndexPage: NextPage = () => {
-    const [age, setAge] = React.useState<Option<string>>('');
-    const router = useRouter();
-
-    const handleChange = (event: SelectChangeEvent<Option<string>>) => {
-        setAge(event?.target?.value);
-    };
-
-    return (
-        <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-            <Button variant="outlined" onClick={() => router.push(LoginRoutes.login)}>
-                Go to Login
-            </Button>
-        </FormControl>
-    );
-}
-
-export default IndexPage
+export default SplashScreen;

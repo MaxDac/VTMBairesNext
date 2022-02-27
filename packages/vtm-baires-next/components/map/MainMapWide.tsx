@@ -3,7 +3,7 @@ import areas from "./map-settings.json";
 import type {Map} from "vtm-baires-next-services/graphql-queries/data-utils";
 import MainMapImageMapper from "./MainMapImageMapper";
 import type {ReactElement} from "react";
-import {Option} from "vtm-baires-next-utils";
+import type {Option} from "vtm-baires-next-utils";
 
 type Props = {
     maps: Option<Map[]>,

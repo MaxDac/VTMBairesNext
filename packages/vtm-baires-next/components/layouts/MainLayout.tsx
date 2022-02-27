@@ -10,20 +10,21 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {menuIconStyle} from "./menu/menu-base-utils";
+import {menuIconStyle} from "../menu/menu-base-utils";
 import {useMediaQuery} from "@mui/material";
-import MessageControl from "./app-bar-controls/MessageControl";
-import OnlineControl from "./app-bar-controls/OnlineControl";
-import LogoutControl from "./app-bar-controls/LogoutControl";
-import ReloadControl from "./app-bar-controls/ReloadControl";
-import {useMessageSubscription} from "../base/_hooks/useMessageSubscription";
-import ReturnToChatControl from "./app-bar-controls/ReturnToChatControl";
-import SecondaryListItems from "./menu/SecondaryListItems";
-import MainListItems from "./menu/MainListItems";
-import CommonListItems from "./menu/CommonListItems";
+import MessageControl from "../app-bar-controls/MessageControl";
+import OnlineControl from "../app-bar-controls/OnlineControl";
+import LogoutControl from "../app-bar-controls/LogoutControl";
+import ReloadControl from "../app-bar-controls/ReloadControl";
+import {useMessageSubscription} from "../../base/_hooks/useMessageSubscription";
+import ReturnToChatControl from "../app-bar-controls/ReturnToChatControl";
+import SecondaryListItems from "../menu/SecondaryListItems";
+import MainListItems from "../menu/MainListItems";
+import CommonListItems from "../menu/CommonListItems";
 import {DefaultFallback} from "vtm-baires-next-components";
 import {useRecoilValue} from "recoil";
-import {isUserMasterSelector} from "../session/selectors/recoil-selectors";
+import {isUserMasterSelector} from "../../session/selectors/recoil-selectors";
+import useWindowContainer from "./useWindowContainer";
 
 const drawerWidth = 300;
 
@@ -31,7 +32,7 @@ const SwipeableDrawer = React.lazy(() => import("@mui/material/SwipeableDrawer")
 
 const PageDrawer = ({open, setOpen, children}: any) => {
     const theme = useTheme();
-    const container = window !== undefined ? () => window.document.body : undefined;
+    const container = useWindowContainer()
     const fullScreen = useMediaQuery(theme.breakpoints.up('md'));
 
     if (fullScreen) {
@@ -69,7 +70,7 @@ const PageDrawer = ({open, setOpen, children}: any) => {
     );
 };
 
-const MiniDrawer = ({children}: {children: any}): ReactElement => {
+const MainLayout = ({children}: {children: any}): ReactElement => {
     const theme = useTheme();
     const isUserMaster = useRecoilValue(isUserMasterSelector);
 
@@ -220,4 +221,4 @@ const MiniDrawer = ({children}: {children: any}): ReactElement => {
     );
 };
 
-export default MiniDrawer;
+export default MainLayout;

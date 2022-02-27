@@ -2,11 +2,15 @@ import Box from '@mui/system/Box';
 import React, {ReactElement, useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
 import CenteredBox from "../../../vtm-baires-next-components/src/components/CenteredBox";
+import useCheckSession from "../../session/hooks/useCheckSession";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
-    const [firstPhrase, setFirstPhrase] = useState("");
-    const [secondPhrase, setSecondPhrase] = useState("");
-    const [thirdPhrase, setThirdPhrase] = useState("");
+    useCheckSession()
+
+    const [firstPhrase, setFirstPhrase] = useState("")
+    const [secondPhrase, setSecondPhrase] = useState("")
+    const [thirdPhrase, setThirdPhrase] = useState("")
 
     useEffect(() => {
         const firstLinePhrase = "Buenos Aires by Night";
@@ -93,6 +97,12 @@ const Index = (): ReactElement => {
             </CenteredBox>
         </Box>
     )
-};
+}
 
-export default Index;
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
+
+export default Index

@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import MainLayout from "./MainLayout";
+import MainLayout from "./layouts/MainLayout";
 import Typography from "@mui/material/Typography";
 import type {Option} from "vtm-baires-next-utils";
 
