@@ -1,9 +1,9 @@
+import type {ReactElement} from "react";
 import React, {useEffect} from "react";
 import Typography from "@mui/material/Typography";
-import {mainFontFamily} from "../Main.Layout.Style";
+import {mainFontFamily} from "vtm-baires-next-components";
 import {menuTextStyle} from "../menu/menu-base-utils";
 import Box from "@mui/material/Box";
-import type {ReactElement} from "react";
 import {useRouter} from "next/router";
 import {performLogout} from "vtm-baires-next-services/graphql-queries/logout-service";
 import {LoginRoutes} from "../../base/routes";

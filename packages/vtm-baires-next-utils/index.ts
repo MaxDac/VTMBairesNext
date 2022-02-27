@@ -56,7 +56,8 @@ export {
     sortStrings,
     rangeArray,
     replaceAll,
-    isNotNullNorEmpty
+    isNotNullNorEmpty,
+    orderAlphabetically
 } from "./src/utils";
 export {wrapSubscription, subscribe, useCustomLazyLoadQuery, tryTranslateError} from "./src/relay-utils";
 export {getEnvironment} from "./src/relay-environment";

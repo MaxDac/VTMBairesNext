@@ -1,7 +1,7 @@
 import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
+import Select, {SelectChangeEvent} from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {useTheme} from "@mui/material/styles";
 import {getSelectItems, SelectProps} from "./component-helpers";
@@ -12,7 +12,7 @@ type Props = SelectProps & {
 }
 
 const emptyMenuItem = () => (
-    <MenuItem key="element-zero" value={null}>None</MenuItem>
+    <MenuItem key="element-zero" value={undefined}>None</MenuItem>
 );
 
 const PlainSelectField = (props: Props): React.ReactElement => {
@@ -20,7 +20,7 @@ const PlainSelectField = (props: Props): React.ReactElement => {
 
     const items = () => getSelectItems(props, emptyMenuItem);
 
-    const onChange = ({target: {value}}: ChangeEvent<HTMLInputElement>) => props.onChange(value);
+    const onChange = ({target: {value}}: SelectChangeEvent) => props.onChange(value);
 
     return (
         <FormControl sx={{

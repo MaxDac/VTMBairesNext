@@ -51,7 +51,7 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): ReactElement => {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem button onClick={onMenuItemSelected(Routes.splashScreen)}>
+                <ListItem button onClick={onMenuItemSelected(Routes.main)}>
                     <ListItemIcon>
                         {
                             user?.id != null

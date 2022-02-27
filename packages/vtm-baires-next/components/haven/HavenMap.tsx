@@ -6,7 +6,7 @@ import Switch from "@mui/material/Switch";
 import Box from "@mui/material/Box";
 import HavenMapLegend from "./HavenMapLegend";
 import type {Haven} from "vtm-baires-next-services/graphql-queries/queries/haven/GetHavensQuery";
-import MainMapImageMapper from "./MainMapImageMapper";
+import MainMapImageMapper from "../map/MainMapImageMapper";
 import {useRecoilValue} from "recoil";
 import {SessionCharacter} from "../../session/types";
 import {sessionCharacterStateAtom} from "../../session/atoms/recoil-atoms";

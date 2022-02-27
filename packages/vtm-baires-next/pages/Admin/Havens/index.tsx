@@ -26,7 +26,7 @@ import SetDangerZoneMutation from "vtm-baires-next-services/graphql-queries/muta
 import type {
     SetDangerZoneRequest
 } from "vtm-baires-next-services/graphql-queries/mutations/havens/__generated__/SetDangerZoneMutation.graphql";
-import HavenMap from "../../../components/maps/HavenMap";
+import HavenMap from "../../../components/haven/HavenMap";
 import type {
     SetHavenInfoRequest
 } from "vtm-baires-next-services/graphql-queries/mutations/havens/__generated__/SetHavenInfoMutation.graphql";

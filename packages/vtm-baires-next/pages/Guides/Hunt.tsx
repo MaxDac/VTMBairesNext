@@ -11,12 +11,11 @@ import StyledTableRow from "../../components/guides/StyledTableRow";
 import StyledTableCell from "../../components/guides/StyledTableCell";
 import {guideStyle, liStyle, titleStyle} from "../../components/guides/GuidesStyles";
 import {
-  freeHavenFillColorWithoutOpacity,
-  occupiedHavenFillColorWithoutOpacity,
-  personalHavenFillColorWithoutOpacity,
-} from "../../components/main/haven-maps/haven-map-areas-helpers";
+    freeHavenFillColorWithoutOpacity,
+    occupiedHavenFillColorWithoutOpacity,
+    personalHavenFillColorWithoutOpacity,
+} from "../../components/haven/haven-map-areas-helpers";
 import GuideLayout from "../../components/layouts/GuideLayout";
-import HomeRules from "./HomeRules";
 
 const Hunt = (): ReactElement => {
     return (

@@ -25,7 +25,7 @@ type Props = {
     closePopup: () => void;
 }
 
-const OnlineControlDialog = ({closePopup}: Props): ReactElement[] => {
+const OnlineControlDialog = ({closePopup}: Props): ReactElement => {
     const theme = useTheme();
     const online = useCustomLazyLoadQuery<SessionQuery>(listSessionQuery, {}, {
         fetchPolicy: "network-only"
@@ -96,7 +96,11 @@ const OnlineControlDialog = ({closePopup}: Props): ReactElement[] => {
         ?.sort((a, b) => onlineUserSorter(a, b))
         ?.map(o => onlineRow(o)) ?? (<></>);
 
-    return showOnline();
+    return (
+        <>
+            {showOnline()}
+        </>
+    );
 };
 
 const OnlineControlActionsBigScreen = ({o, closePopup}: any) => (

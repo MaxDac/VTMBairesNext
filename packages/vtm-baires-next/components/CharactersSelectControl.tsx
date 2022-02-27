@@ -2,13 +2,12 @@ import React, {ReactElement, useMemo} from "react";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import type {Option} from "vtm-baires-next-utils";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {orderAlphabetically, useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {allCharactersQuery} from "vtm-baires-next-services/graphql-queries/queries/character/AllCharactersQuery";
 import type {
     AllCharactersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/AllCharactersQuery.graphql";
 import {FormSelectField, PlainSelectField} from "vtm-baires-next-components";
-import {orderAlphabetically} from "vtm-baires-next-utils/src/utils";
 
 type Props = {
     label: string;

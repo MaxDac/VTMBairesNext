@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import ImageMapper from "react-img-mapper";
 import Typography from "@mui/material/Typography";
-import type {ReactElement} from "react";
 import type {Haven} from "vtm-baires-next-services/graphql-queries/queries/haven/GetHavensQuery";
-import type {MapAreas} from "../maps/haven-map-areas-helpers";
+import type {MapAreas} from "../haven/haven-map-areas-helpers";
+import ImageMapper from "react-img-mapper";
+import type {CustomArea} from "react-img-mapper";
 
 type Props = {
     areas: Array<MapAreas>;
@@ -40,7 +40,7 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): ReactElement => {
         areas: areas
     };
 
-    const onMouseEnter = ({title}: {title: string}) => {
+    const onMouseEnter = ({title}: any) => {
         setLegend((_: any) => title);
     };
 
@@ -48,7 +48,10 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): ReactElement => {
         setLegend((_: any) => "");
     };
 
-    const onAreaSelectedInternal = ({haven, name}: MapAreas) => onAreaSelected(haven ?? name);
+    const onAreaSelectedInternal = (obj: CustomArea) => {
+        const {haven, name}: MapAreas = (obj as unknown) as MapAreas;
+        return onAreaSelected(haven ?? name);
+    }
 
     return (
         <Box component="div" sx={{display: "inline-flex", width: "100%"}}>
@@ -60,10 +63,10 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): ReactElement => {
             }}>
                 <Stack>
                     <Box sx={{cursor: "pointer"}}>
-                        {/* @ts-ignore */}
-                        <ImageMapper onClick={onAreaSelectedInternal} onMouseEnter={onMouseEnter}
-                                     src="main-map.webp"
+                        <ImageMapper src="main-map.webp"
                                      map={map}
+                                     onClick={onAreaSelectedInternal}
+                                     onMouseEnter={onMouseEnter}
                                      onMouseLeave={onMouseLeave} />
                     </Box>
                     <Box sx={{

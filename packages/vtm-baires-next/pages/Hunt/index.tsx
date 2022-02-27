@@ -18,7 +18,7 @@ import type {
     HuntMutation$data
 } from "vtm-baires-next-services/graphql-queries/mutations/characters/__generated__/HuntMutation.graphql";
 import {AlertType} from "vtm-baires-next-utils";
-import HavenMap from "../../components/maps/HavenMap";
+import HavenMap from "../../components/haven/HavenMap";
 
 type Props = {
     characterId: string;

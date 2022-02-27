@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {AlertType, useCustomSnackbar} from "../../../vtm-baires-next-components/src/components/notifications";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {useCustomSnackbar} from "vtm-baires-next-components";
+import {AlertType, subscribe, useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {getMessageDigestQuery} from "vtm-baires-next-services/graphql-queries/queries/messages/GetMessageDigestQuery";
 import {
     GetMessageDigestQuery
@@ -10,7 +10,6 @@ import useSubscriptionTokenQuery
 import {
     MessageNotificationSubscription$data
 } from "vtm-baires-next-services/graphql-queries/subscriptions/__generated__/MessageNotificationSubscription.graphql";
-import {subscribe} from "vtm-baires-next-utils";
 import MessageNotificationSubscription
     from "vtm-baires-next-services/graphql-queries/subscriptions/MessageNotificationSubscription";
 

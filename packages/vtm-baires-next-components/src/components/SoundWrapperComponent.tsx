@@ -19,6 +19,7 @@ type Props = {
     soundSourceUrl: string;
 }
 
+// TODO - Correct this component to be compatible with Typescript
 const SoundWrapperComponent = ({id, soundSourceUrl}: Props): ReactElement => {
     const {enqueueSnackbar} = useCustomSnackbar()
     const [isPlaying, setIsPlaying] = useState(false);
@@ -38,7 +39,7 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): ReactElement => {
 
     useEffect(() => {
         const handleRejection =
-            error => {
+            (error: Error) => {
                 console.error("Error while reproducing track", error);
                 enqueueSnackbar({
                     type: AlertType.Warning,
@@ -57,34 +58,37 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): ReactElement => {
     useEffect(() => {
 
         audioRef.current?.addEventListener("canplay", function() {
+            // @ts-ignore
             this.volume = 0.3;
+            // @ts-ignore
             setTrackDuration(_ => this.duration);
         });
 
         audioRef.current?.addEventListener("timeupdate", function() {
+            // @ts-ignore
             setTrackCurrent((_: number) => this.currentTime);
         });
 
     }, []);
 
-    const onVolumeChanged = (event: Event, value: number, _activeThumb: number) => {
+    const onVolumeChanged = (event: Event, value: number | number[], _activeThumb: number) => {
         if (audioRef.current?.volume != null) {
-            audioRef.current.volume = value / 100;
+            audioRef.current.volume = (value as number) / 100;
         }
 
-        setVolume((_n: number) => value);
+        setVolume((_n: number) => (value as number));
     };
 
-    const onTrackChanged = (event: Event, value: number, _activeThumb: number) => {
+    const onTrackChanged = (event: Event, value: number | number[], _activeThumb: number) => {
         if (audioRef.current?.currentTime != null) {
-            audioRef.current.currentTime = value;
+            audioRef.current.currentTime = value as number;
         }
 
-        setTrackCurrent((_n: number) => value);
+        setTrackCurrent((_n: number) => value as number);
     };
 
     const getTrackCurrentFormatted = () => {
-        const padding = s => String(s).padStart(2, "0");
+        const padding = (s: any) => String(s).padStart(2, "0");
         const totalSeconds = Math.round(trackCurrent);
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds - minutes * 60;

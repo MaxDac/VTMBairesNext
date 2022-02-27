@@ -1,10 +1,9 @@
 import React, {ReactElement, useMemo} from "react";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {useCustomLazyLoadQuery, orderAlphabetically} from "vtm-baires-next-utils";
 import {allUsersQuery} from "vtm-baires-next-services/graphql-queries/queries/accounts/AllUsersQuery";
 import {
     AllUsersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/accounts/__generated__/AllUsersQuery.graphql";
-import {orderAlphabetically} from "vtm-baires-next-utils";
 import {FormSelectField} from "vtm-baires-next-components";
 
 type Props = {
