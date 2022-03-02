@@ -35,6 +35,7 @@ import useLocationSession from "../../session/hooks/useLocationSession";
 import deleteChatEntryMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/DeleteChatEntryMutation";
 import chatEntryMutationPromise from "vtm-baires-next-services/graphql-queries/mutations/chat/CreateChatEntryMutation";
 import chatDiceEntryMutationPromise from "vtm-baires-next-services/graphql-queries/mutations/chat/CreateChatDiceEntry";
+import MainLayout from "../../components/layouts/MainLayout";
 
 type ChatProps = {
     map: Map
@@ -313,5 +314,11 @@ const ChatInternal = ({map}: ChatProps): ReactElement => {
         </>
     );
 };
+
+Chat.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Chat;

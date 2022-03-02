@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {HavenEventsListWrapper} from "../../../components/haven/HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
 import {
@@ -8,6 +8,8 @@ import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {
     GetHavenUnresolvedEventsQuery
 } from "vtm-baires-next-services/graphql-queries/queries/haven/__generated__/GetHavenUnresolvedEventsQuery.graphql";
+import MainLayout from "../../../components/layouts/MainLayout";
+import Index from "../../Main";
 
 const Events = (): any => {
     return (
@@ -33,5 +35,11 @@ const AdminHavenEventsInternal = ({fetchKey, component}: any) => {
 
     return component(events);
 }
+
+Events.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Events;

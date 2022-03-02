@@ -10,8 +10,9 @@ import {convert, mainMapsQuery} from "vtm-baires-next-services/graphql-queries/q
 import {Routes} from "../../base/routes";
 import ResetSessionMapMutation
     from "vtm-baires-next-services/graphql-queries/mutations/sessions/ResetSessionMapMutation";
+import MainLayout from "../../components/layouts/MainLayout";
 
-const MainMap = (): ReactElement => {
+const Index = (): ReactElement => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const router = useRouter();
@@ -36,4 +37,10 @@ const MainMap = (): ReactElement => {
     );
 };
 
-export default MainMap;
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
+
+export default Index;

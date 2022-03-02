@@ -11,7 +11,7 @@ import {useRelayEnvironment} from "react-relay";
 import {useRouter} from "next/router";
 import type {Option} from "vtm-baires-next-utils";
 import {useWait, useCustomSnackbar, useDialog} from "vtm-baires-next-components";
-import {useCustomLazyLoadQueryNoVar} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
 import {
     getCreationTemplateQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/GetCreationTemplateQuery";
@@ -35,7 +35,7 @@ const TemplateSelectionControl = ({characterId}: Props): ReactElement => {
     const {enqueueSnackbar} = useCustomSnackbar()
     const {showDialog} = useDialog()
     const environment = useRelayEnvironment();
-    const templates = useCustomLazyLoadQueryNoVar<GetCreationTemplateQuery>(getCreationTemplateQuery)
+    const templates = useCustomLazyLoadQuery<GetCreationTemplateQuery>(getCreationTemplateQuery)
         ?.getCreationTemplates ?? [];
 
     const [template, setTemplate] = useState<Option<string>>(null);

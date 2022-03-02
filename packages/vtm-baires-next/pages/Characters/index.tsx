@@ -7,6 +7,7 @@ import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import type {
     AllCharactersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/AllCharactersQuery.graphql";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
     const characters = toNotNullArray(
@@ -24,5 +25,11 @@ const Index = (): ReactElement => {
 
     return showComponent();
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

@@ -19,9 +19,22 @@ import type {
 } from "vtm-baires-next-services/graphql-queries/mutations/characters/__generated__/HuntMutation.graphql";
 import {AlertType} from "vtm-baires-next-utils";
 import HavenMap from "../../components/haven/HavenMap";
+import MainLayout from "../../components/layouts/MainLayout";
 
 type Props = {
     characterId: string;
+}
+
+const Index = (): ReactElement => {
+    const [character,] = useCharacterSession();
+
+    if (character?.id != null) {
+        return (
+            <HuntInternal characterId={character.id} />
+        )
+    }
+
+    return (<></>);
 }
 
 const HuntInternal = ({characterId}: Props) => {
@@ -177,16 +190,10 @@ const HuntInternal = ({characterId}: Props) => {
     return (<></>);
 };
 
-const Index = (): ReactElement => {
-    const [character,] = useCharacterSession();
-
-    if (character?.id != null) {
-        return (
-            <HuntInternal characterId={character.id} />
-        )
-    }
-
-    return (<></>);
-}
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

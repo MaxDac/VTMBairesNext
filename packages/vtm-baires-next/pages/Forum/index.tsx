@@ -11,6 +11,7 @@ import {useRouter} from "next/router";
 import useForumSections from "vtm-baires-next-services/graphql-queries/queries/forum/GetForumSectionsQuery";
 import {Routes} from "../../base/routes";
 import type {Option} from "vtm-baires-next-utils";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
     const router = useRouter();
@@ -59,5 +60,11 @@ const Index = (): ReactElement => {
         </ForumLayout>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

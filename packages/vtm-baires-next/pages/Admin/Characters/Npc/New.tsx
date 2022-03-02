@@ -8,6 +8,8 @@ import CreateNewNpcMutation from "vtm-baires-next-services/graphql-queries/mutat
 import {Routes} from "../../../../base/routes";
 import useCharacterSession from "../../../../session/hooks/useCharacterSession";
 import {AlertType} from "vtm-baires-next-utils";
+import MainLayout from "../../../../components/layouts/MainLayout";
+import Index from "../../../Main";
 
 const New = (): ReactElement => {
     const router = useRouter();
@@ -46,5 +48,11 @@ const New = (): ReactElement => {
         <CharacterInfoForm onSubmit={onSubmit} />
     );
 }
+
+New.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default New;

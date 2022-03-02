@@ -1,3 +1,4 @@
+import type {ReactElement} from "react";
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -9,7 +10,6 @@ import {useFragment, useRelayEnvironment} from "react-relay";
 import CharacterFragmentProvider from "../../components/character/data/CharacterFragmentProvider";
 import {object, string} from "yup";
 import {useFormik} from "formik";
-import type {ReactElement} from "react";
 import type {
     CharacterFragments_characterConcealedInfo$data,
     CharacterFragments_characterConcealedInfo$key
@@ -25,6 +25,7 @@ import {GuideRoutes, Routes} from "../../base/routes";
 import {AlertType} from "vtm-baires-next-utils";
 import Link from "next/link";
 import {useTheme} from "@mui/material/styles";
+import MainLayout from "../../components/layouts/MainLayout";
 
 type InternalElementProps = {
     character: CharacterFragments_characterConcealedInfo$key;
@@ -405,5 +406,11 @@ const Creation4 = (): ReactElement => {
         </CharacterFragmentProvider>
     );
 }
+
+Creation4.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Creation4;

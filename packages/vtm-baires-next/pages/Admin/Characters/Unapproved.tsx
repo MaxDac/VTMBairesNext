@@ -9,6 +9,8 @@ import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import type {
     AllUnapprovedCharactersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/AllUnapprovedCharactersQuery.graphql";
+import MainLayout from "../../../components/layouts/MainLayout";
+import Index from "../../Main";
 
 const Unapproved = (): ReactElement => {
     const unapprovedCharacters = toNotNullArray(
@@ -20,5 +22,11 @@ const Unapproved = (): ReactElement => {
         <ShowCharactersComponent characters={unapprovedCharacters} />
     );
 }
+
+Unapproved.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Unapproved;

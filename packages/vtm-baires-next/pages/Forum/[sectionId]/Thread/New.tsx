@@ -13,6 +13,8 @@ import CreateNewThreadMutation from "vtm-baires-next-services/graphql-queries/mu
 import {AlertType} from "vtm-baires-next-utils";
 import {useRecoilValue} from "recoil";
 import {isUserMasterSelector} from "../../../../session/selectors/recoil-selectors";
+import MainLayout from "../../../../components/layouts/MainLayout";
+import Index from "../../../Main";
 
 const New = (): ReactElement => {
     const router = useRouter();
@@ -88,5 +90,11 @@ const New = (): ReactElement => {
                     buttonText="Crea Thread" />
     );
 };
+
+New.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default New;

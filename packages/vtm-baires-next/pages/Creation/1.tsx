@@ -12,6 +12,7 @@ import {Routes} from "../../base/routes";
 import CreateCharacterMutation
     from "vtm-baires-next-services/graphql-queries/mutations/characters/CreateCharacterMutation";
 import useCharacterSession from "../../session/hooks/useCharacterSession";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Creation1 = (): ReactElement => {
     const router = useRouter();
@@ -48,5 +49,11 @@ const Creation1 = (): ReactElement => {
         <CharacterInfoForm onSubmit={onSubmit} />
     );
 }
+
+Creation1.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Creation1;

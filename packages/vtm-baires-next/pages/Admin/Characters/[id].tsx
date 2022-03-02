@@ -20,6 +20,8 @@ import {useRouter} from "next/router";
 import {
     useCharacterCompleteQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/GetCharacterCompleteQuery";
+import MainLayout from "../../../components/layouts/MainLayout";
+import Index from "../../Main";
 
 const Id = (): ReactElement => {
     const router = useRouter();
@@ -130,5 +132,11 @@ const Id = (): ReactElement => {
 
     return showDashboard();
 }
+
+Id.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Id;

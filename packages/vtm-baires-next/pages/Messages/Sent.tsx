@@ -1,10 +1,10 @@
-import React, {Suspense, useContext, useState} from "react";
+import type {ReactElement} from "react";
+import React, {Suspense, useState} from "react";
 import List from "@mui/material/List";
 import MessageListItem from "../../components/messages/components/MessageListItem";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {useRelayEnvironment} from "react-relay";
-import type {ReactElement} from "react";
 import {useRouter} from "next/router";
 import {useCustomSnackbar, useDialog} from "vtm-baires-next-components";
 import {handleMutation, useCustomLazyLoadQuery} from "vtm-baires-next-utils";
@@ -15,6 +15,7 @@ import type {
 import DeleteAllSentMessagesMutation
     from "vtm-baires-next-services/graphql-queries/mutations/messages/DeleteAllSentMessagesMutation";
 import {Routes} from "../../base/routes";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Sent = (): ReactElement => {
     const router = useRouter();
@@ -87,5 +88,11 @@ const Sent = (): ReactElement => {
         </>
     );
 }
+
+Sent.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Sent;

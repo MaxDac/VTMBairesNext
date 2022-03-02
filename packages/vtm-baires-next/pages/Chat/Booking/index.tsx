@@ -11,7 +11,7 @@ import {useRelayEnvironment} from "react-relay";
 import {useHasUserAlreadyBooked} from "vtm-baires-next-services/graphql-queries/queries/chat/HasUserAlreadyBookedQuery";
 import {useRouter} from "next/router";
 import {FormSelectField, useCustomSnackbar, useDialog, useWait} from "vtm-baires-next-components";
-import {useCustomLazyLoadQueryNoVar} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
 import {
     getAvailableCharactersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/chat/GetAvailableCharactersQuery";
@@ -26,11 +26,11 @@ import {allPlayersQuery} from "vtm-baires-next-services/graphql-queries/queries/
 import {
     AllPlayersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/AllPlayersQuery.graphql";
-import {isNotNullNorEmpty} from "vtm-baires-next-utils";
-import {AlertType} from "vtm-baires-next-utils";
+import {AlertType, isNotNullNorEmpty} from "vtm-baires-next-utils";
 import AddUserToChatMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/AddUserToChatMutation";
 import BookChatMapMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/BookChatMapMutation";
 import {Routes} from "../../../base/routes";
+import MainLayout from "../../../components/layouts/MainLayout";
 
 const numberOfPossibleUsers = 5;
 
@@ -93,7 +93,7 @@ const BookChatsInternal = (): ReactElement => {
     const availablePrivateChats = useAvailablePrivateChats()
         ?.map(m => [m.id, m.name ?? ""] as [string, string]);
 
-    const allowedUsers = useCustomLazyLoadQueryNoVar<GetAvailableCharactersQuery>(getAvailableCharactersQuery, {
+    const allowedUsers = useCustomLazyLoadQuery<GetAvailableCharactersQuery>(getAvailableCharactersQuery, {},{
         fetchPolicy: "network-only"
     })
         ?.privateChatAvailableUsers
@@ -102,7 +102,7 @@ const BookChatsInternal = (): ReactElement => {
 
     const allowedUsersMap = new Map(allowedUsers.map(x => [x, true]));
 
-    const allCharacters = useCustomLazyLoadQueryNoVar<AllPlayersQuery>(allPlayersQuery)
+    const allCharacters = useCustomLazyLoadQuery<AllPlayersQuery>(allPlayersQuery)
         ?.playersCharactersList
         ?.filter(x => x?.user?.id !== user?.id && x?.user?.id && allowedUsersMap.has(x?.user?.id))
         ?.map(c => {
@@ -245,5 +245,11 @@ const BookChatsInternal = (): ReactElement => {
         </>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

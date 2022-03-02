@@ -14,6 +14,8 @@ import {Routes} from "../../../../../base/routes";
 import ModifyThreadMutation from "vtm-baires-next-services/graphql-queries/mutations/forum/ModifyThreadMutation";
 import {useRecoilValue} from "recoil";
 import {isUserMasterSelector} from "../../../../../session/selectors/recoil-selectors";
+import MainLayout from "../../../../../components/layouts/MainLayout";
+import Index from "../../../../Main";
 
 const Modify = (): ReactElement => {
     const environment = useRelayEnvironment();
@@ -77,5 +79,11 @@ const Modify = (): ReactElement => {
                     buttonText="Modifica Thread" />
     );
 };
+
+Modify.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Modify;

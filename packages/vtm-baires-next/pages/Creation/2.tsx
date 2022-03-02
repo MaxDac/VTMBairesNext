@@ -9,6 +9,7 @@ import Link from "next/link";
 import {GuideRoutes} from "../../base/routes";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Creation2Explanation = () => (
     <Grid item xs={12}>
@@ -158,5 +159,11 @@ const Creation2 = (): ReactElement => {
 
     return getForm();
 }
+
+Creation2.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Creation2;

@@ -1,4 +1,4 @@
-import React, {Suspense, useCallback, useState} from "react";
+import React, {ReactElement, Suspense, useCallback, useState} from "react";
 import CharacterProvider from "../../components/character/data/CharacterProvider";
 import type {RefreshedQueryOption} from "../../components/character/sheet-sections/sections/CharacterSheetStatsSection";
 import CharacterSheetStatsSection from "../../components/character/sheet-sections/sections/CharacterSheetStatsSection";
@@ -24,6 +24,7 @@ import FinalizeCharacterMutation
 import {Routes} from "../../base/routes";
 import DeleteCharacterMutation
     from "vtm-baires-next-services/graphql-queries/mutations/characters/DeleteCharacterMutation";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Creation5 = (): any => (
     <>
@@ -207,5 +208,11 @@ const Internal = ({character}: {character: Option<Character>}) => {
     
     return (<></>);
 }
+
+Creation5.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Creation5;

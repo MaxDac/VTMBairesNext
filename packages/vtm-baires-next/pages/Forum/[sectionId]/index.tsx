@@ -19,6 +19,7 @@ import {
     GetForumThreadsQuery
 } from "vtm-baires-next-services/graphql-queries/queries/forum/__generated__/GetForumThreadsQuery.graphql";
 import {Routes} from "../../../base/routes";
+import MainLayout from "../../../components/layouts/MainLayout";
 
 export const DefaultPageSize = 10;
 
@@ -127,5 +128,11 @@ const Index = (): ReactElement => {
         </ForumLayout>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

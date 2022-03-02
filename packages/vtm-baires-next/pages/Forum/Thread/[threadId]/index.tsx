@@ -21,6 +21,7 @@ import SetForumThreadReadMutation
     from "vtm-baires-next-services/graphql-queries/mutations/forum/SetForumThreadReadMutation";
 import useCharacterSession from "../../../../session/hooks/useCharacterSession";
 import {Routes} from "../../../../base/routes";
+import MainLayout from "../../../../components/layouts/MainLayout";
 
 export const DefaultPageSize = 10;
 
@@ -128,5 +129,11 @@ const Index = (): ReactElement => {
         </ForumLayout>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

@@ -27,6 +27,7 @@ import {
     GetAdminChatEntriesQuery
 } from "vtm-baires-next-services/graphql-queries/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
 import {ParsedText} from "vtm-baires-next-components";
+import MainLayout from "../../components/layouts/MainLayout";
 
 type ChatViewerInternalProps = {
     from: any,
@@ -188,5 +189,11 @@ const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps
         </TableContainer>
     );
 };
+
+Chat.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Chat;

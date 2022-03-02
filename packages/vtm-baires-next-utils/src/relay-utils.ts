@@ -12,11 +12,12 @@ import type {PayloadError} from "relay-runtime";
 import {
     commitMutation,
     fetchQuery,
-    requestSubscription, useLazyLoadQuery
+    requestSubscription, useLazyLoadQuery, useRelayEnvironment
 } from "react-relay";
 
 import {AlertInfo, AlertType, Option, Options} from "../index";
 import {Sink} from "relay-runtime/lib/network/RelayObservable";
+import {useEffect, useState} from "react";
 
 export type GraphqlErrorLocation = {
     column: number;
@@ -177,32 +178,37 @@ export const convertToJavascriptArray = <T>(arr: T[] | undefined): T[] => {
  */
 export const useCustomLazyLoadQuery = <TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
-    variables: VariablesOf<TQuery>,
+    variables?: VariablesOf<TQuery>,
     options?: {
         fetchKey?: string | number,
         fetchPolicy?: FetchPolicy,
         networkCacheConfig?: CacheConfig,
         UNSTABLE_renderPolicy?: RenderPolicy,
     },
-): TQuery['response'] =>
-    useLazyLoadQuery<TQuery>(gqlQuery, variables, options);
+): TQuery['response'] => {
+    // Can't use this hook in Next.js
+    // return useLazyLoadQuery<TQuery>(gqlQuery, variables ?? {}, options);
 
-/**
- * Custom implementation of the Relay lazy load query for queries without input parameters.
- * @param gqlQuery The GraphQL query.
- * @param options The call options.
- * @return {*} The query response.
- */
-export const useCustomLazyLoadQueryNoVar = <TQuery extends OperationType>(
-    gqlQuery: GraphQLTaggedNode,
-    options?: {
-        fetchKey?: string | number,
-        fetchPolicy?: FetchPolicy,
-        networkCacheConfig?: CacheConfig,
-        UNSTABLE_renderPolicy?: RenderPolicy,
-    },
-): TQuery['response'] =>
-    useCustomLazyLoadQuery<TQuery>(gqlQuery, {}, options);
+    const environment = useRelayEnvironment()
+    const [data, setData] = useState<Option<TQuery['response']>>(null)
+
+    // Using useEffect run things on the client side
+    useEffect(() => {
+        fetchQuery<TQuery>(environment, gqlQuery, variables ?? {}, {
+            networkCacheConfig: {
+                ...options?.networkCacheConfig,
+                force: options?.fetchKey != null || options?.networkCacheConfig?.force
+            },
+            fetchPolicy: options?.fetchPolicy === "network-only" ? "network-only" : "store-or-network"
+        })
+            .toPromise()
+            .then(response => {
+                setData(response)
+            })
+    }, [setData])
+
+    return data
+}
 
 /**
  * Tries to translate english error message to italian.

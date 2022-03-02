@@ -19,6 +19,7 @@ import {
 import DeleteAllReceivedMessagesMutation
     from "vtm-baires-next-services/graphql-queries/mutations/messages/DeleteAllReceivedMessagesMutation";
 import {Routes} from "../../base/routes";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
     const theme = useTheme();
@@ -96,5 +97,11 @@ const Index = (): ReactElement => {
         </>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

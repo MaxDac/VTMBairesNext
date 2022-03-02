@@ -5,6 +5,7 @@ import {useUpdateSessionMap} from "../../base/_hooks/useUpdateSessionMap";
 import useMap from "vtm-baires-next-services/graphql-queries/queries/map/MapQuery";
 import useSectionMaps from "vtm-baires-next-services/graphql-queries/queries/map/SectionMapsQuery";
 import {replaceAll, stripAccents} from "vtm-baires-next-utils/src/utils";
+import MainLayout from "../../components/layouts/MainLayout";
 
 type MapProps = {
     id: string;
@@ -29,5 +30,11 @@ const Id = ({ id }: MapProps): ReactElement => {
 
     return (<SubMap maps={maps} imageUrl={imageUrlName()} />);
 };
+
+Id.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Id;

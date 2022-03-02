@@ -8,7 +8,7 @@ import GuidesAttributesAttributes from "../../components/guides/GuidesAttributes
 import GuidesAttributesDisciplines from "../../components/guides/GuidesAttributesDisciplines";
 import GuidesAttributesAdvantages from "../../components/guides/GuidesAttributesAdvantages";
 import GuideLayout from "../../components/layouts/GuideLayout";
-import {useCustomLazyLoadQueryNoVar} from "vtm-baires-next-utils/src/relay-utils";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
 import {attributesCompleteQuery} from "vtm-baires-next-services/graphql-queries/queries/info/AttributesCompleteQuery";
 import {
     AttributesCompleteQuery
@@ -33,7 +33,7 @@ const Attributes = (): ReactElement => {
         setValue(newValue);
     };
 
-    const attributes = useCustomLazyLoadQueryNoVar<AttributesCompleteQuery>(attributesCompleteQuery, {
+    const attributes = useCustomLazyLoadQuery<AttributesCompleteQuery>(attributesCompleteQuery, {}, {
         fetchPolicy: "store-or-network"
     })?.attributes ?? [];
 

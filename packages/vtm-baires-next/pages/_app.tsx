@@ -1,8 +1,8 @@
 import '../styles/globals.css';
 import {ReactElement, ReactNode, Suspense, useState} from "react";
-import {AppInitialProps, AppProps} from 'next/app'
+import {AppProps} from 'next/app'
 import {RelayEnvironmentProvider} from 'react-relay';
-import {getCookiesFromRequestHeader, getRelayEnvironment} from "vtm-baires-next-utils";
+import {getRelayEnvironment} from "vtm-baires-next-utils";
 import {CacheProvider} from "@emotion/react";
 import {EmotionCache} from "@emotion/cache";
 import createEmotionCache from '../base/createEmotionCache';
@@ -14,8 +14,6 @@ import {SnackbarProvider} from "notistack";
 import ErrorBoundary from "../base/ErrorBoundary";
 import {NextPage} from "next";
 import {CookiesProvider} from "react-cookie";
-import type {Cookies} from "vtm-baires-next-utils";
-import Index from "./Main";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -83,22 +81,23 @@ const AppInternal = ({ Component, pageProps }: any) => {
     );
 }
 
-type ContextProps = {
-    ctx: {
-        req?: {
-            headers?: {
-                cookie?: string
-            }
-        }
-    }
-}
-
-App.getInitialProps = ({ctx}: ContextProps): AppInitialProps => {
-    return {
-        pageProps: {
-            cookies: getCookiesFromRequestHeader(ctx?.req?.headers?.cookie)
-        }
-    };
-}
+// Uncomment to get the cookies
+// type ContextProps = {
+//     ctx: {
+//         req?: {
+//             headers?: {
+//                 cookie?: string
+//             }
+//         }
+//     }
+// }
+//
+// App.getInitialProps = ({ctx}: ContextProps): AppInitialProps => {
+//     return {
+//         pageProps: {
+//             cookies: getCookiesFromRequestHeader(ctx?.req?.headers?.cookie)
+//         }
+//     };
+// }
 
 export default App

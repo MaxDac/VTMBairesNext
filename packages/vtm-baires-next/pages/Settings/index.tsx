@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import SetNewPassword from "../../components/settings/SetNewPassword";
 import type {ReactElement} from "react";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
     return (
@@ -15,5 +16,11 @@ const Index = (): ReactElement => {
         </Container>
     );
 }
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

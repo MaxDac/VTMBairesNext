@@ -1,3 +1,4 @@
+import type {ReactElement} from "react";
 import React, {useState} from "react";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
@@ -7,11 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import JackOfAllTradesSkillForm from "../../components/creation/strategies/JackOfAllTradesSkillForm";
 import BalancedSkillForm from "../../components/creation/strategies/BalancedSkillForm";
 import SpecialistSkillForm from "../../components/creation/strategies/SpecialistSkillForm";
-import type {ReactElement} from "react";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {useTheme} from "@mui/material/styles";
 import {GuideRoutes} from "../../base/routes";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Creation3 = (): ReactElement => {
     const theme = useTheme();
@@ -101,5 +102,11 @@ const Creation3 = (): ReactElement => {
         </Box>
     )
 }
+
+Creation3.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Creation3;

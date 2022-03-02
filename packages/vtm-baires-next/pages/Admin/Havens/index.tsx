@@ -30,6 +30,7 @@ import HavenMap from "../../../components/haven/HavenMap";
 import type {
     SetHavenInfoRequest
 } from "vtm-baires-next-services/graphql-queries/mutations/havens/__generated__/SetHavenInfoMutation.graphql";
+import MainLayout from "../../../components/layouts/MainLayout";
 
 const Index = (): ReactElement => {
     const environment = useRelayEnvironment();
@@ -199,5 +200,11 @@ const Index = (): ReactElement => {
         </Grid>
     );
 };
+
+Index.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Index;

@@ -11,6 +11,8 @@ import {useCustomSnackbar, useDialog} from "vtm-baires-next-components";
 import {handleMutation} from "vtm-baires-next-utils";
 import ConfirmPngMutation from "vtm-baires-next-services/graphql-queries/mutations/characters/ConfirmPngMutation";
 import {Routes} from "../../../../../base/routes";
+import MainLayout from "../../../../../components/layouts/MainLayout";
+import Index from "../../../../Main";
 
 type Props = {
     characterId: string;
@@ -64,5 +66,11 @@ const Define = ({characterId}: Props): ReactElement => {
         </Grid>
     );
 }
+
+Define.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Define;

@@ -22,6 +22,7 @@ import SetMessageReadMutation from "vtm-baires-next-services/graphql-queries/mut
 import {getInitials} from "vtm-baires-next-utils/src/utils";
 import DeleteMessageMutation from "vtm-baires-next-services/graphql-queries/mutations/messages/DeleteMessageMutation";
 import {Routes} from "../../base/routes";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Id = (): ReactElement => {
     const router = useRouter();
@@ -115,5 +116,11 @@ const Id = (): ReactElement => {
         </ReturnToMessagesControl>
     );
 }
+
+Id.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Id;

@@ -39,6 +39,8 @@ import ChangeCharacterSheetInfoMutation
 import {Routes} from "../../../base/routes";
 import {useRecoilValue} from "recoil";
 import {isUserMasterSelector} from "../../../session/selectors/recoil-selectors";
+import MainLayout from "../../../components/layouts/MainLayout";
+import Index from "../../Main";
 
 const urlNotMatchingErrorMessage = "L'URL che stai utilizzando è invalido";
 
@@ -206,5 +208,11 @@ const Id = (): ReactElement => {
         </form>
     );
 }
+
+Id.getLayout = (page: ReactElement) => (
+    <MainLayout>
+        {page}
+    </MainLayout>
+)
 
 export default Id;
