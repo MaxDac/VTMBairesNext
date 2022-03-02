@@ -1,7 +1,6 @@
 import type {Attribute, AttributeTypeNames} from "./queries/info/AttributesQuery";
 import {sortStrings} from "vtm-baires-next-utils";
 import type {Option} from "vtm-baires-next-utils";
-import {Character} from "./queries/character/GetCharacterCompleteQuery";
 
 const sortForAttributes = (a: Attribute, b: Attribute): number => sortStrings(a.id, b.id);
 

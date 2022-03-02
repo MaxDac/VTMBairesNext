@@ -13,5 +13,16 @@ export default (req: NextApiRequest, res: NextApiResponse) =>
         pathRewrite: [{
             patternStr: "^/api/login",
             replaceStr: "/login"
-        }]
+        }],
+        onProxyInit: httpProxy => {
+            httpProxy.on("proxyRes", (_req, res, target) => {
+                const cookies: [string, string][] = res.headers.cookie
+                    ?.split(" ")
+                    ?.map(x => x.replace(";", "").split("=") as [string, string]) ?? [];
+
+                for (let [key, value] of cookies) {
+                    console.debug(key, value);
+                }
+            })
+        }
     })

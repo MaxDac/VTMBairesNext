@@ -1,68 +1,22 @@
-import {Environment, Network, RecordSource, RequestParameters, Store, Variables} from "relay-runtime";
-import {GraphQLResponse} from "relay-runtime/lib/network/RelayNetworkTypes";
+import {Environment, Network, RecordSource, Store} from "relay-runtime";
 import RelayQueryResponseCache from "relay-runtime/lib/network/RelayQueryResponseCache";
+import {AppCookies, Option} from "../index";
+import {fetchGraphQL} from "./relay-fetch-delegate";
 
 export const cache = new RelayQueryResponseCache({
     size: 250,
     ttl: 60 * 5 * 1000
-});
+})
 
-type StatusCode = number;
-
-type StatusCodeAndResponse<T> = [StatusCode, T];
-
-const extractResponse = <T>(response: Response): Promise<StatusCodeAndResponse<T>> => {
-    return response.json().then(r => {
-        console.debug("response obtained: ", r);
-        console.debug("response status: " + response.status)
-        return [response.status, r];
-    });
-}
-
-const manageResponse = <T>(onUnauthorized: () => void, [status, response]: StatusCodeAndResponse<T>): T => {
-    if (status === 200) {
-        console.debug("returning response", response);
-        return response;
-    }
-    else if (status === 401) {
-        onUnauthorized();
-    }
-
-    throw response;
-};
-
-const manageResponseError = (reason: any) => {
-    console.error(`Generic error with status code ${reason}`, reason)
-    return reason;
-};
-
-const postToApi = (onUnauthorized: () => void) =>
-    ({text}: RequestParameters, variables: Variables): Promise<GraphQLResponse> =>
-        fetch( "http://localhost:4000/api", {
-            method: 'POST',
-            headers: { 'content-type': 'application/json;charset=UTF-8' },
-            body: JSON.stringify({
-                query: text,
-                variables
-            })
-        })
-            .then(response => extractResponse<GraphQLResponse>(response))
-            .then(responseAndStatus => manageResponse<GraphQLResponse>(onUnauthorized, responseAndStatus))
-            .catch(manageResponseError);
-
-const fetchGraphQL = (onUnauthorized: () => void) => {
-    return async (params: RequestParameters, variables: Variables) => {
-        const response: any = await postToApi(onUnauthorized)(params, variables);
-        console.debug("response graph ql", response);
-
-        return response;
-    }
-}
-
-export const getEnvironment = (onUnauthorized: () => void): Environment => {
+/**
+ * Gets the relay environment. Allows choosing between server and client environment.
+ * @param onUnauthorized Delegate that will be called when the call returns an unauthorized status.
+ * @param cookies The authentication cookies.
+ */
+export const getRelayEnvironment = (onUnauthorized: () => void, cookies?: Option<AppCookies>): Environment => {
     return new Environment({
-        network: Network.create(fetchGraphQL(onUnauthorized)),
+        network: Network.create(fetchGraphQL(onUnauthorized, cookies)),
         store: new Store(new RecordSource()),
-        // isServer: false
+        isServer: true
     })
 }

@@ -75,7 +75,6 @@ const MainLayout = ({children}: {children: any}): ReactElement => {
     const isUserMaster = useRecoilValue(isUserMasterSelector);
 
     const [open, setOpen] = React.useState(false);
-    const numberOfMessages = useMessageSubscription();
 
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
@@ -193,7 +192,7 @@ const MainLayout = ({children}: {children: any}): ReactElement => {
                     </Typography>
                     <ReturnToChatControl />
                     <ReloadControl />
-                    <MessageControl numberOfMessages={numberOfMessages} />
+                    <MessageControl />
                     <OnlineControl />
                     <LogoutControl />
                 </Toolbar>

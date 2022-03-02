@@ -1,5 +1,6 @@
 import type {Option} from "../index";
 import {Options} from "../index";
+import {NextRequest} from "next/server";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -228,3 +229,47 @@ export const sortStrings = (a: string, b: string): number =>
     a > b
         ? 1
         : (a === b ? 0 : -1);
+
+export type RequestHeader = Option<string>;
+
+export type Cookies = {
+    [key: string]: string;
+}
+
+/**
+ * Extracts the key value pairs containing the cookies from the corresponding request header.
+ * @param requestCookieHeader
+ */
+export const getCookiesFromRequestHeader = (requestCookieHeader: RequestHeader): Cookies => {
+    const cookies = requestCookieHeader
+        ?.split(" ")
+        ?.map(x => x.replace(";", "").split("=") as [string, string]) ?? [];
+
+    const returnValue: Cookies = {};
+
+    for (const [key, value] of cookies) {
+        returnValue[key] = value;
+    }
+
+    return returnValue;
+}
+
+/**
+ * Reform the Cookies header for the fetch HTTP call.
+ * @param cookies The cookies.
+ */
+export const addCookiesToHeaders = (cookies: Option<{ [key: string]: string }>): any => {
+    if (cookies == null) {
+        return {}
+    }
+
+    let stringCookies = ""
+
+    for (const key in cookies) {
+        stringCookies = `${stringCookies}${key}=${cookies[key]}; `
+    }
+
+    return {
+        Cookie: stringCookies.slice(0, -2)
+    }
+}

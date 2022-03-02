@@ -7,10 +7,13 @@ export const config = {
     }
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => (
-    process.env.NODE_ENV === "development"
-        ? httpProxyMiddleware(req, res, {
-            target: "http://localhost:4000"
-        })
-        : res.status(404).send(null)
-);
+export default async (req: NextApiRequest, res: NextApiResponse) =>
+    httpProxyMiddleware(req, res, {
+        target: "http://localhost:4000",
+        onProxyInit: httpProxy => {
+            httpProxy.on("proxyReq", (req, _res, _target) => {
+                console.debug("req", req)
+            })
+        }
+    })
+

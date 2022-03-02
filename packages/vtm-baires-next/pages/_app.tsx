@@ -1,8 +1,8 @@
 import '../styles/globals.css';
-import {ReactElement, ReactNode, Suspense, useEffect} from "react";
-import {AppProps} from 'next/app'
+import {ReactElement, ReactNode, Suspense, useState} from "react";
+import {AppInitialProps, AppProps} from 'next/app'
 import {RelayEnvironmentProvider} from 'react-relay';
-import {getEnvironment} from "vtm-baires-next-utils";
+import {getCookiesFromRequestHeader, getRelayEnvironment} from "vtm-baires-next-utils";
 import {CacheProvider} from "@emotion/react";
 import {EmotionCache} from "@emotion/cache";
 import createEmotionCache from '../base/createEmotionCache';
@@ -13,7 +13,9 @@ import {RecoilRoot} from "recoil";
 import {SnackbarProvider} from "notistack";
 import ErrorBoundary from "../base/ErrorBoundary";
 import {NextPage} from "next";
-import {useRouter} from "next/router";
+import {CookiesProvider} from "react-cookie";
+import type {Cookies} from "vtm-baires-next-utils";
+import Index from "./Main";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -29,14 +31,7 @@ type AppWithPropsWithLayout = MyAppProps & {
     Component: NextPageWithLayout;
 }
 
-export default function App({ Component, pageProps, emotionCache = clientSideEmotionCache }: AppWithPropsWithLayout) {
-    const env = getEnvironment(() => console.error("UNAUTHORIZED"));
-
-    const component = () => {
-        const getLayout = Component.getLayout ?? ((page) => page);
-        return getLayout(<Component {...pageProps} />);
-    }
-
+const App = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: AppWithPropsWithLayout) => {
     return (
         <CacheProvider value={emotionCache}>
             <Head>
@@ -51,11 +46,7 @@ export default function App({ Component, pageProps, emotionCache = clientSideEmo
                     <CssBaseline />
                     <SnackbarProvider maxSnack={3}>
                         <ErrorBoundary>
-                            <RelayEnvironmentProvider environment={env}>
-                                    <Suspense fallback={"Loading..."}>
-                                        {component()}
-                                    </Suspense>
-                            </RelayEnvironmentProvider>
+                            <AppInternal Component={Component} pageProps={pageProps} />
                         </ErrorBoundary>
                     </SnackbarProvider>
                 </ThemeProvider>
@@ -63,3 +54,51 @@ export default function App({ Component, pageProps, emotionCache = clientSideEmo
         </CacheProvider>
     )
 }
+
+const AppInternal = ({ Component, pageProps }: any) => {
+    const [unauthorized, setUnauthorized] = useState(false)
+
+    const onUnauthorized = () => {
+        console.error("unauthorized")
+        setUnauthorized(true)
+    }
+
+    console.debug("is unauthorized?", unauthorized)
+
+    const env = getRelayEnvironment(onUnauthorized, pageProps.cookies)!
+
+    const component = () => {
+        const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+        return getLayout(<Component {...pageProps} />);
+    }
+
+    return (
+        <CookiesProvider>
+            <RelayEnvironmentProvider environment={env}>
+                <Suspense fallback={"Loading..."}>
+                    {component()}
+                </Suspense>
+            </RelayEnvironmentProvider>
+        </CookiesProvider>
+    );
+}
+
+type ContextProps = {
+    ctx: {
+        req?: {
+            headers?: {
+                cookie?: string
+            }
+        }
+    }
+}
+
+App.getInitialProps = ({ctx}: ContextProps): AppInitialProps => {
+    return {
+        pageProps: {
+            cookies: getCookiesFromRequestHeader(ctx?.req?.headers?.cookie)
+        }
+    };
+}
+
+export default App

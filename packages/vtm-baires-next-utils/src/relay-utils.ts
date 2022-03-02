@@ -158,7 +158,7 @@ export const subscribe = <T>(
  * @param arr The Relay array.
  * @return {T[]} The javascript array.
  */
-export const convertToJavascriptArray = <T>(arr: /*ReadonlyArray<T>*/ T[] | undefined): T[] => {
+export const convertToJavascriptArray = <T>(arr: T[] | undefined): T[] => {
     const result = [];
 
     for (const element of arr ?? []) {
@@ -202,7 +202,7 @@ export const useCustomLazyLoadQueryNoVar = <TQuery extends OperationType>(
         UNSTABLE_renderPolicy?: RenderPolicy,
     },
 ): TQuery['response'] =>
-    useLazyLoadQuery<TQuery>(gqlQuery, {}, options);
+    useCustomLazyLoadQuery<TQuery>(gqlQuery, {}, options);
 
 /**
  * Tries to translate english error message to italian.

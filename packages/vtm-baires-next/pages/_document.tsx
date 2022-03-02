@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {Html, Head, Main, NextScript} from 'next/document';
+import type {DocumentContext} from "next/document";
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../base/theme';
 import createEmotionCache from '../base/createEmotionCache';
@@ -33,7 +34,7 @@ const MyDocument = (props: any) => (
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with static-site generation (SSG).
-MyDocument.getInitialProps = async (ctx: any) => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     // Resolution order
     //
     // On the server:
@@ -63,18 +64,10 @@ MyDocument.getInitialProps = async (ctx: any) => {
     const cache = createEmotionCache();
     const { extractCriticalToChunks } = createEmotionServer(cache);
 
-    ctx.renderPage = () =>
-        originalRenderPage({
-            enhanceApp: (App: any) =>
-                function EnhanceApp(props: any) {
-                    return <App emotionCache={cache} {...props} />;
-                },
-        });
-
-    const initialProps = await Document.getInitialProps(ctx);
+    const muiInitialProps = await Document.getInitialProps(ctx);
     // This is important. It prevents emotion to render invalid HTML.
     // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
-    const emotionStyles = extractCriticalToChunks(initialProps.html);
+    const emotionStyles = extractCriticalToChunks(muiInitialProps.html);
     const emotionStyleTags: any = emotionStyles.styles.map((style) => (
         <style
             data-emotion={`${style.key} ${style.ids.join(' ')}`}
@@ -84,8 +77,15 @@ MyDocument.getInitialProps = async (ctx: any) => {
         />
     ));
 
+    ctx.renderPage = () =>
+        originalRenderPage({
+            enhanceApp: (App: any) => (props: any) => {
+                return <App emotionCache={cache} {...props} />;
+            }
+        });
+
     return {
-        ...initialProps,
+        ...muiInitialProps,
         emotionStyleTags: emotionStyleTags,
     };
 };

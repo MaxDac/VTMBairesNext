@@ -57,10 +57,21 @@ export {
     rangeArray,
     replaceAll,
     isNotNullNorEmpty,
-    orderAlphabetically
+    orderAlphabetically,
+    getCookiesFromRequestHeader
 } from "./src/utils";
+
+export type {
+    Cookies
+} from "./src/utils";
+
+export type AppCookies = {
+    "x-xcfre-rl-cookie"?: string,
+    "x-xcrf-cookie"?: string
+}
+
 export {wrapSubscription, subscribe, useCustomLazyLoadQuery, tryTranslateError} from "./src/relay-utils";
-export {getEnvironment} from "./src/relay-environment";
+export {getRelayEnvironment} from "./src/relay-environment";
 export {downloadFile, compressImage} from "./src/file-utils";
 export {
     yesterday,
