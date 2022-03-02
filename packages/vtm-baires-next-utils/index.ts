@@ -58,6 +58,7 @@ export {
     replaceAll,
     isNotNullNorEmpty,
     orderAlphabetically,
+    getCookiesFromRequest,
     getCookiesFromRequestHeader
 } from "./src/utils";
 

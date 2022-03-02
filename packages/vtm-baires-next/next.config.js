@@ -15,13 +15,13 @@ const rewritesConfig = () => isDevelopment()
     : [];
 
 const nextConfig =
-    // withPWA(
+    withPWA(
         withTM({
             reactStrictMode: true,
-            // pwa: {
-            //     dest: 'public',
-            //     runtimeCaching,
-            // },
+            pwa: {
+                dest: 'public',
+                runtimeCaching,
+            },
             compiler: {
                 relay: {
                     src: "./base",
@@ -42,6 +42,6 @@ const nextConfig =
                 domains: ["web-platforms.sfo2.cdn.digitaloceanspaces.com"]
             }
         })
-    // );
+    );
 
 module.exports = nextConfig

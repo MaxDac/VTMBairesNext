@@ -1,6 +1,7 @@
 import type {Option} from "../index";
 import {Options} from "../index";
 import {NextRequest} from "next/server";
+import {IncomingMessage} from "http";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -235,6 +236,13 @@ export type RequestHeader = Option<string>;
 export type Cookies = {
     [key: string]: string;
 }
+
+/**
+ * Extracts the key value pairs containing the cookies from the corresponding request.
+ * @param request The request
+ */
+export const getCookiesFromRequest = (request: IncomingMessage): Cookies =>
+    getCookiesFromRequestHeader(request.headers?.cookie)
 
 /**
  * Extracts the key value pairs containing the cookies from the corresponding request header.

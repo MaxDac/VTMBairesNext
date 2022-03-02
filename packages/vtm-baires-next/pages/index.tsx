@@ -1,11 +1,35 @@
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import {clansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/ClansQuery";
-import {ClansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/ClansQuery.graphql";
+import type {
+    ClansQuery,
+    ClansQuery$data
+} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/ClansQuery.graphql";
+import {fetchQuery} from "relay-runtime";
+import {useEffect, useState} from "react";
+import {useRelayEnvironment} from "react-relay";
 
-export default function Index(props: any) {
-    const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})
+const Index = (props: any) => {
+    const environment = useRelayEnvironment()
+    const [clans, setClans] = useState<ClansQuery$data['clans']>([])
+
+    useEffect(() => {
+        fetchQuery<ClansQuery>(environment, clansQuery, {}, {
+            fetchPolicy: "network-only"
+        })
+            .toPromise()
+            .then(clans => setClans(_ => clans?.clans ?? []))
+    }, [setClans])
+
+    const showClans = () =>
+        clans?.map(c => (<li key={c?.id}>{c?.name}</li>))
 
     return (
-        <div>Test</div>
+        <>
+            <h1>Test</h1>
+            <ul>
+                {showClans()}
+            </ul>
+        </>
     )
 }
+
+export default Index

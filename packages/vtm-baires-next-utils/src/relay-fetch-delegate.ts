@@ -28,7 +28,7 @@ const postToApi = (onUnauthorized: () => void, cookies?: Option<AppCookies>) =>
             'content-type': 'application/json;charset=UTF-8'
         }
 
-        return fetch("http://localhost:4000/api", {
+        return fetch("/api", {
             method: 'POST',
             headers: requestHeaders,
             body: JSON.stringify({

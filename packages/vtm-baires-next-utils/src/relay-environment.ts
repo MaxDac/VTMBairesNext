@@ -16,7 +16,6 @@ export const cache = new RelayQueryResponseCache({
 export const getRelayEnvironment = (onUnauthorized: () => void, cookies?: Option<AppCookies>): Environment => {
     return new Environment({
         network: Network.create(fetchGraphQL(onUnauthorized, cookies)),
-        store: new Store(new RecordSource()),
-        isServer: true
+        store: new Store(new RecordSource())
     })
 }
