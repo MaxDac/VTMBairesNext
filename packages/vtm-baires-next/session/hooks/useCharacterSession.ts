@@ -4,7 +4,7 @@ import {
 } from "vtm-baires-next-services/graphql-queries/mutations/sessions/UpdateSessionCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
 import {sessionCharacterStateAtom} from "../atoms/recoil-atoms";
-import type {SessionCharacter} from "../types";
+import type {SessionCharacter} from "vtm-baires-next-services";
 import {storageCharacterInfoKey} from "../types";
 import useRecoilStateWithLocalStorage from "./base/useRecoilStateWithLocalStorage";
 import {useEffect} from "react";

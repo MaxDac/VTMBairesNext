@@ -2,21 +2,26 @@ import type {ReactElement} from "react";
 import React from 'react';
 import SubMap from "../../components/map/SubMap";
 import {useUpdateSessionMap} from "../../base/_hooks/useUpdateSessionMap";
-import useMap from "vtm-baires-next-services/graphql-queries/queries/map/MapQuery";
-import useSectionMaps from "vtm-baires-next-services/graphql-queries/queries/map/SectionMapsQuery";
 import {replaceAll, stripAccents} from "vtm-baires-next-utils/src/utils";
 import MainLayout from "../../components/layouts/MainLayout";
+import {useRouter} from "next/router";
+import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
+import {mapQuery} from "vtm-baires-next-services/graphql-queries/queries/map/MapQuery";
+import {MapQuery} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/MapQuery.graphql";
+import {
+    SectionMapsQuery
+} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/SectionMapsQuery.graphql";
+import {sectionMapsQuery} from "vtm-baires-next-services/graphql-queries/queries/map/SectionMapsQuery";
 
-type MapProps = {
-    id: string;
-}
+const Id = (): ReactElement => {
+    const router = useRouter()
+    const {id} = router.query
 
-const Id = ({ id }: MapProps): ReactElement => {
-    useUpdateSessionMap(id);
+    console.debug("map id selected", id)
 
-    const map = useMap(id);
-
-    const maps = useSectionMaps(id);
+    useUpdateSessionMap(id as string);
+    const map = useCustomLazyLoadQuery<MapQuery>(mapQuery, { id: id as string })?.map;
+    const maps = useCustomLazyLoadQuery<SectionMapsQuery>(sectionMapsQuery, { parentId: id as string })?.sectionMaps
 
     const getImageUrlName = (name: string) => {
         const fileName = stripAccents(replaceAll(name.toLowerCase(), " ", "-"));

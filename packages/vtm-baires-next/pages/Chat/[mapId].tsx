@@ -22,7 +22,6 @@ import {getFileTextFromChatEntries} from "../../components/chat/chat-helpers";
 import {useUpdateSessionMap} from "../../base/_hooks/useUpdateSessionMap";
 import {useRouter} from "next/router";
 import type {ChatEntry, Map} from "vtm-baires-next-services/graphql-queries/data-utils";
-import useMap from "vtm-baires-next-services/graphql-queries/queries/map/MapQuery";
 import {useHasUserAccessToMap} from "vtm-baires-next-services/graphql-queries/queries/map/HasUserAccessToMapQuery";
 import {useIsCharacterAwake} from "vtm-baires-next-services/graphql-queries/queries/character/IsCharacterAwakeQuery";
 import useCharacterSession from "../../session/hooks/useCharacterSession";
@@ -30,22 +29,22 @@ import {useRecoilValue} from "recoil";
 import {isUserMasterSelector} from "../../session/selectors/recoil-selectors";
 import {DefaultFallback, useCustomSnackbar, useDialog} from "vtm-baires-next-components";
 import type {Option} from "vtm-baires-next-utils";
-import {AlertType, downloadFile, handleMutation} from "vtm-baires-next-utils";
+import {AlertType, downloadFile, handleMutation, useCustomLazyLoadQuery} from "vtm-baires-next-utils";
 import useLocationSession from "../../session/hooks/useLocationSession";
 import deleteChatEntryMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/DeleteChatEntryMutation";
 import chatEntryMutationPromise from "vtm-baires-next-services/graphql-queries/mutations/chat/CreateChatEntryMutation";
 import chatDiceEntryMutationPromise from "vtm-baires-next-services/graphql-queries/mutations/chat/CreateChatDiceEntry";
 import MainLayout from "../../components/layouts/MainLayout";
-
-type ChatProps = {
-    map: Map
-}
+import {mapQuery} from "vtm-baires-next-services/graphql-queries/queries/map/MapQuery";
+import type {
+    MapQuery
+} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/MapQuery.graphql";
 
 const Chat = (): ReactElement => {
     const router = useRouter()
     const {mapId} = router.query
 
-    const map = useMap(mapId as string);
+    const map = useCustomLazyLoadQuery<MapQuery>(mapQuery, { id: mapId as string })?.map
     const userHasAccess = useHasUserAccessToMap(mapId as string);
 
     if (map != null && (!map.isPrivate || userHasAccess)) {
@@ -85,6 +84,10 @@ const ShowChatInput = ({character, characterId, onNewEntry, onNewDiceEntry}: any
     )
 };
 
+type ChatProps = {
+    map: Map
+}
+
 const ChatInternal = ({map}: ChatProps): ReactElement => {
     const session = useRef(useLocationSession());
 
@@ -97,8 +100,8 @@ const ChatInternal = ({map}: ChatProps): ReactElement => {
     const {showDialog} = useDialog()
 
     const [mapModalOpen, setMapModalOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState(map?.name);
-    const [modalDescription, setModalDescription] = useState(map?.description);
+    const [modalTitle, setModalTitle] = useState(map.name);
+    const [modalDescription, setModalDescription] = useState(map.description);
 
     const [characterModalOpen, setCharacterModalOpen] = useState(false);
     const [selectedCharacterId, setSelectedCharacterId] = useState<Option<string>>(null);

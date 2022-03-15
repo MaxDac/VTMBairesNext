@@ -8,16 +8,21 @@ import SendIcon from "@mui/icons-material/Send";
 import {useMediaQuery, useTheme} from '@mui/material';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {goToChatAndUpdateSession} from "../chat/chat-helpers";
-import type {Map} from "vtm-baires-next-services/graphql-queries/data-utils";
 import {useRouter} from "next/router";
 import useLocationSession from "../../session/hooks/useLocationSession";
 import {Routes} from "../../base/routes";
 import {orderAlphabetically} from "vtm-baires-next-utils";
 import SubMapResponsive from "./SubMapResponsive";
 import SubMapWide from "./SubMapWide";
+import type {
+    MainMapsQuery$data
+} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/MainMapsQuery.graphql";
+import type {
+    SectionMapsQuery$data
+} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/SectionMapsQuery.graphql";
 
 type SubMapProps = {
-    maps: Map[],
+    maps: MainMapsQuery$data["mainMaps"] | SectionMapsQuery$data["sectionMaps"],
     imageUrl: string
 };
 
@@ -41,23 +46,20 @@ const SubMap = ({maps, imageUrl}: SubMapProps): ReactElement => {
         }
     }
 
-    const mapLinks = () => {
-        const mapLink = ({id, name, isChat}: any) =>
-            <ListItem key={id} button onClick={openMap(id, name, isChat)}>
-                <ListItemIcon>
-                    <SendIcon sx={menuIconStyle} />
-                </ListItemIcon>
-                <ListItemText primary={name} primaryTypographyProps={{
-                    fontFamily: "DefaultTypewriter"
-                }} />
-            </ListItem>;
+    const mapLink = ({id, name, isChat}: any) =>
+        <ListItem key={id} button onClick={openMap(id, name, isChat)}>
+            <ListItemIcon>
+                <SendIcon sx={menuIconStyle} />
+            </ListItemIcon>
+            <ListItemText primary={name} primaryTypographyProps={{
+                fontFamily: "DefaultTypewriter"
+            }} />
+        </ListItem>;
 
-        if (maps && maps.map != null) {
-            return maps.sort((a, b) => orderAlphabetically(a.id, b.id)).map(mapLink);
-        }
-
-        return [];
-    };
+    const mapLinks = () =>
+        maps?.map(x => x)
+            ?.sort((a, b) => orderAlphabetically(a?.id, b?.id))
+            ?.map(mapLink) ?? [];
 
     if (showAsResponsive) {
         return (<SubMapResponsive imageUrl={imageUrl}

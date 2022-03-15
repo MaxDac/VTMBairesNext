@@ -1,6 +1,7 @@
 import type {Attribute, AttributeTypeNames} from "./queries/info/AttributesQuery";
 import {sortStrings} from "vtm-baires-next-utils";
 import type {Option} from "vtm-baires-next-utils";
+import {MapQuery$data} from "./queries/map/__generated__/MapQuery.graphql";
 
 const sortForAttributes = (a: Attribute, b: Attribute): number => sortStrings(a.id, b.id);
 
@@ -61,11 +62,6 @@ export const isUserRoleMaster = (role: Option<Roles>): boolean =>
 export const isUserMaster = (user: Option<User>): boolean =>
     user?.role != null && isUserRoleMaster(user.role);
 
-export type BaseInfo = {
-    id: number;
-    name: string;
-}
-
 export type ChatEntry = {
     id: string;
     text: string;
@@ -86,26 +82,10 @@ export type ChatEntry = {
 }
 
 export type Map = {
-    id: string,
-    name: string,
-    description: string,
-    image: string;
-    isChat: boolean;
-    isPrivate: boolean;
+    readonly id: string;
+    readonly name: string | null;
+    readonly description: string | null;
+    readonly image: string | null;
+    readonly isChat: boolean | null;
+    readonly isPrivate: boolean | null;
 }
-
-export const convertToMap: (amorphousObject: any) => Map = ({
-                                                                id,
-                                                                name,
-                                                                description,
-                                                                image,
-                                                                isChat,
-                                                                isPrivate
-                                                            }) => ({
-    id,
-    name,
-    description,
-    image,
-    isChat,
-    isPrivate
-} as Map);

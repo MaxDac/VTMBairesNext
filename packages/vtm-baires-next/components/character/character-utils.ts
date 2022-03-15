@@ -3,7 +3,7 @@ import type {Character} from "vtm-baires-next-services/graphql-queries/queries/c
 import type {
     CharacterFragments_characterConcealedInfo$data
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
-import type {SessionCharacter} from "../../session/types";
+import type {SessionCharacter} from "vtm-baires-next-services";
 import type {
     CharacterFragments_characterStats$data
 } from "vtm-baires-next-services/graphql-queries/queries/character/__generated__/CharacterFragments_characterStats.graphql";

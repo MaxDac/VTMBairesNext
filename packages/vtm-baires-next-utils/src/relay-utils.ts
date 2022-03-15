@@ -155,21 +155,6 @@ export const subscribe = <T>(
 };
 
 /**
- * Converts a Relay readonly array to a plain Javascript array.
- * @param arr The Relay array.
- * @return {T[]} The javascript array.
- */
-export const convertToJavascriptArray = <T>(arr: T[] | undefined): T[] => {
-    const result = [];
-
-    for (const element of arr ?? []) {
-        result.push(element);
-    }
-
-    return result;
-};
-
-/**
  * Custom implementation of the Relay lazy load query.
  * @param gqlQuery The GraphQL query.
  * @param variables The query variables.

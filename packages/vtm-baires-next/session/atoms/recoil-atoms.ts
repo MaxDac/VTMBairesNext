@@ -1,7 +1,6 @@
-import {atom, DefaultValue, selector} from "recoil";
+import {atom} from "recoil";
 import type {Option} from "vtm-baires-next-utils";
-import type {Session, SessionCharacter, SessionLocation} from "../types";
-import {isUserMaster} from "vtm-baires-next-services/graphql-queries/data-utils";
+import type {Session, SessionCharacter, SessionLocation} from "vtm-baires-next-services";
 
 export const sessionStateAtom = atom<Option<Session>>({
     key: 'userSession',

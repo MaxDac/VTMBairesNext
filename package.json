@@ -6,7 +6,7 @@
     "dev": "lerna run --scope vtm-baires-next --stream dev",
     "start": "run-p --print-label package:*",
     "start:next": "lerna run --scope vtm-baires-next --stream start",
-    "build": "lerna run --parallel build",
+    "build": "lerna run --scope vtm-baires-next --parallel build",
     "relay": "lerna run --scope vtm-baires-next-services --stream relay",
     "refresh-graphql": "lerna run --scope vtm-baires-next-services --stream refresh-graphql"
   },

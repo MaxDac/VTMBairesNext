@@ -15,6 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import useSession from "../../session/hooks/useSession";
 import {GuideRoutes, LoginRoutes, Routes} from "../../base/routes";
 import Box from "@mui/material/Box";
+import useCharacterSession from "../../session/hooks/useCharacterSession";
 
 const SignInSchema = object().shape({
     email: string()
@@ -30,9 +31,10 @@ type LoginComponentFormProps = {
 };
 
 const Index = (): JSX.Element => {
-    const router = useRouter();
-    const theme = useTheme();
-    const [,setUserSession] = useSession();
+    const router = useRouter()
+    const theme = useTheme()
+    const [,setUserSession] = useSession()
+    const [,setCharacter] = useCharacterSession()
 
     const {enqueueSnackbar} = useCustomSnackbar()
     const {startWait, stopWait} = useWait()
@@ -74,7 +76,7 @@ const Index = (): JSX.Element => {
             .then(res => {
                 console.debug("login call result: ", res);
                 stopWait();
-                setUserSession(res.data);
+                setUserSession(res.data.user)
                 setTimeout(() => {
                     router.push(Routes.main);
                 }, 200);

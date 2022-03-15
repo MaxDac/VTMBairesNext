@@ -21,7 +21,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import WebIcon from '@mui/icons-material/Web';
 import {useRouter} from "next/router";
 import {useRecoilValue} from "recoil";
-import type {Session} from "../../session/types";
+import type {Session} from "vtm-baires-next-services";
 import type {Option} from "vtm-baires-next-utils";
 import {sessionStateAtom} from "../../session/atoms/recoil-atoms";
 import {GuideRoutes, Routes} from "../../base/routes";

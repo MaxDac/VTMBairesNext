@@ -15,7 +15,7 @@ import {useCustomLazyLoadQuery} from "vtm-baires-next-utils/src/relay-utils";
 import {
     getAvailableCharactersQuery
 } from "vtm-baires-next-services/graphql-queries/queries/chat/GetAvailableCharactersQuery";
-import useSession from "../../../session/hooks/useSession";
+import useSession from "../../session/hooks/useSession";
 import {
     useAvailablePrivateChats
 } from "vtm-baires-next-services/graphql-queries/queries/map/AvailablePrivateChatsQuery";
@@ -29,8 +29,8 @@ import {
 import {AlertType, isNotNullNorEmpty} from "vtm-baires-next-utils";
 import AddUserToChatMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/AddUserToChatMutation";
 import BookChatMapMutation from "vtm-baires-next-services/graphql-queries/mutations/chat/BookChatMapMutation";
-import {Routes} from "../../../base/routes";
-import MainLayout from "../../../components/layouts/MainLayout";
+import {Routes} from "../../base/routes";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const numberOfPossibleUsers = 5;
 
@@ -65,7 +65,7 @@ const getInitialObject = () => {
     return initialObject;
 };
 
-const Index = (): ReactElement => {
+const Booking = (): ReactElement => {
     const hasUserAlreadyBooked = useHasUserAlreadyBooked();
 
     if (!hasUserAlreadyBooked) {
@@ -246,10 +246,10 @@ const BookChatsInternal = (): ReactElement => {
     );
 }
 
-Index.getLayout = (page: ReactElement) => (
+Booking.getLayout = (page: ReactElement) => (
     <MainLayout>
         {page}
     </MainLayout>
 )
 
-export default Index;
+export default Booking;

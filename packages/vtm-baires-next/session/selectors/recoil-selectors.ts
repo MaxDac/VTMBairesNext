@@ -7,6 +7,9 @@ export const isUserMasterSelector = selector<boolean>({
     get: ({get}) => {
         const user = get(sessionStateAtom)
 
+        console.debug("user in selector", user)
+        console.debug("user in selector: property", user?.id)
+
         if (user == null) {
             return false
         }

@@ -1,11 +1,12 @@
 import React from "react";
 import SubMap from "./SubMap";
 import type {ReactElement} from "react";
-import type {Option} from "vtm-baires-next-utils";
-import type {Map} from "vtm-baires-next-services/graphql-queries/data-utils";
+import type {
+    MainMapsQuery$data
+} from "vtm-baires-next-services/graphql-queries/queries/map/__generated__/MainMapsQuery.graphql";
 
 type Props = {
-    maps: Option<Map[]>,
+    maps: MainMapsQuery$data["mainMaps"],
     onMapSelected: (mapId: string) => void;
 }
 

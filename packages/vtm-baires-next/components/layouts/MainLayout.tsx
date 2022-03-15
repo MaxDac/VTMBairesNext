@@ -16,7 +16,6 @@ import MessageControl from "../app-bar-controls/MessageControl";
 import OnlineControl from "../app-bar-controls/OnlineControl";
 import LogoutControl from "../app-bar-controls/LogoutControl";
 import ReloadControl from "../app-bar-controls/ReloadControl";
-import {useMessageSubscription} from "../../base/_hooks/useMessageSubscription";
 import ReturnToChatControl from "../app-bar-controls/ReturnToChatControl";
 import SecondaryListItems from "../menu/SecondaryListItems";
 import MainListItems from "../menu/MainListItems";
@@ -25,6 +24,7 @@ import {DefaultFallback} from "vtm-baires-next-components";
 import {useRecoilValue} from "recoil";
 import {isUserMasterSelector} from "../../session/selectors/recoil-selectors";
 import useWindowContainer from "./useWindowContainer";
+import useSession from "../../session/hooks/useSession";
 
 const drawerWidth = 300;
 
@@ -72,7 +72,11 @@ const PageDrawer = ({open, setOpen, children}: any) => {
 
 const MainLayout = ({children}: {children: any}): ReactElement => {
     const theme = useTheme();
+    const [user] = useSession()
     const isUserMaster = useRecoilValue(isUserMasterSelector);
+
+    console.debug("user in session", user)
+    console.debug("is user master?", isUserMaster)
 
     const [open, setOpen] = React.useState(false);
 

@@ -10,44 +10,17 @@ import {Routes} from "../../base/routes";
 import {useMessageSubscription} from "../../base/_hooks/useMessageSubscription";
 
 const MessageControl = (): ReactElement => {
-    const router = useRouter();
+    const router = useRouter()
+    const numberOfMessages = useMessageSubscription()
 
     return (
         <Tooltip title="Messaggi" placement="bottom">
             <IconButton aria-label="messages" onClick={(_: any) => router.push(Routes.messages)}>
-                <MessageControlInternal />
+                <Badge badgeContent={numberOfMessages} color="secondary">
+                    <ForumIcon sx={menuIconStyle} />
+                </Badge>
             </IconButton>
         </Tooltip>
-    );
-}
-
-const MessageControlInternal = (): ReactElement => {
-    // if (process.browser) {
-    //     return (
-    //         <MessageControlWithPopulatedBadge />
-    //     )
-    // }
-
-    return (
-        <MessageCOntrolWithoutPopulatedBadge />
-    )
-}
-
-const MessageControlWithPopulatedBadge = (): ReactElement => {
-    const numberOfMessages = useMessageSubscription();
-
-    return (
-        <Badge badgeContent={numberOfMessages} color="secondary">
-            <ForumIcon sx={menuIconStyle} />
-        </Badge>
-    );
-}
-
-const MessageCOntrolWithoutPopulatedBadge = (): ReactElement => {
-    return (
-        <Badge badgeContent={0} color="secondary">
-            <ForumIcon sx={menuIconStyle} />
-        </Badge>
     );
 }
 

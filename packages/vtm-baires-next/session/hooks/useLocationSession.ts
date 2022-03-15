@@ -1,5 +1,6 @@
 import {sessionMapStateAtom} from "../atoms/recoil-atoms";
-import {SessionLocation, storageLocationInfoKey} from "../types";
+import {storageLocationInfoKey} from "../types";
+import type {SessionLocation} from "vtm-baires-next-services";
 import useRecoilStateWithLocalStorage from "./base/useRecoilStateWithLocalStorage";
 
 /**

@@ -4,16 +4,9 @@ import Typography from '@mui/material/Typography';
 import CenteredBox from "../../../vtm-baires-next-components/src/components/CenteredBox";
 import useCheckSession from "../../session/hooks/useCheckSession";
 import MainLayout from "../../components/layouts/MainLayout";
-import {useMessageSubscription} from "../../base/_hooks/useMessageSubscription";
-import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
-import {clansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/ClansQuery";
-import type {ClansQuery} from "vtm-baires-next-services/graphql-queries/queries/info/__generated__/ClansQuery.graphql";
 
-function Index(props: any): ReactElement {
+function Index(): ReactElement {
     useCheckSession()
-
-    const numberOfMessages = useMessageSubscription()
-    const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans ?? []
 
     const [firstPhrase, setFirstPhrase] = useState("")
     const [secondPhrase, setSecondPhrase] = useState("")

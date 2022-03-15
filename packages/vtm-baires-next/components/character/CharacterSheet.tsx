@@ -6,7 +6,7 @@ import CharacterSheetComplete from "./CharacterSheetComplete";
 import {isUserMaster} from "vtm-baires-next-services/graphql-queries/data-utils";
 import {useRecoilValue} from "recoil";
 import type {Option} from "vtm-baires-next-utils";
-import type {Session, SessionCharacter} from "../../session/types";
+import type {Session, SessionCharacter} from "vtm-baires-next-services";
 import {sessionCharacterStateAtom, sessionStateAtom} from "../../session/atoms/recoil-atoms";
 
 type Props = {

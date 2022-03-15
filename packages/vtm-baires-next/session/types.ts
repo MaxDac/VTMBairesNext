@@ -1,5 +1,3 @@
-import type {Option} from "vtm-baires-next-utils";
-import {User} from "vtm-baires-next-services/graphql-queries/data-utils";
 import {DefaultValue} from "recoil";
 
 export type StorageKey = string;
@@ -20,20 +18,3 @@ type EffectParams<T> = {
     ) => void,
     trigger: 'set' | 'get'
 }
-
-export type SessionCharacter = {
-    id?: Option<string>;
-    name?: Option<string>;
-    approved?: Option<boolean>;
-    clan?: Option<{
-        id?: Option<string>;
-        name?: Option<string>;
-    }>;
-};
-
-export type SessionLocation = {
-    id?: Option<string>;
-    name?: Option<string>;
-};
-
-export type Session = User;

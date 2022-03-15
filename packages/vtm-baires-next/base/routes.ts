@@ -38,9 +38,9 @@ export const Routes = {
             ? (reload === true ? `/Sheet/${id}/Reload` : `/Sheet/${id}`)
             : "/Characters",
     modifySheet: (id: string): string => `/Sheet/Modify/${id}`,
-    subMap: (id: string): string => `/map/${id}`,
-    chat: (id: string): string => `/chat/${id}`,
-    bookChat: "/book-chat",
+    subMap: (id: string): string => `/Map/${id}`,
+    chat: (id: string): string => `/Chat/${id}`,
+    bookChat: "/Chat/Booking",
 
     admin: "/Admin",
     unapprovedCharacters: "/Admin/Characters/Unapproved",
@@ -71,7 +71,7 @@ export const GuideRoutes = {
     mechanics: "/Guides/GeneralRules",
     creation: "/Guides/Creation",
     homeRules: "/Guides/HomeRules",
-    hunt: "/Guides/Index",
+    hunt: "/Guides/Booking",
     experience: "/Guides/Experience",
     places: "/Guides/Places",
     sayings: "/Guides/Sayings",

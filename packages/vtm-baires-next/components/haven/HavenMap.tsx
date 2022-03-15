@@ -8,7 +8,7 @@ import HavenMapLegend from "./HavenMapLegend";
 import type {Haven} from "vtm-baires-next-services/graphql-queries/queries/haven/GetHavensQuery";
 import MainMapImageMapper from "../map/MainMapImageMapper";
 import {useRecoilValue} from "recoil";
-import {SessionCharacter} from "../../session/types";
+import {SessionCharacter} from "vtm-baires-next-services";
 import {sessionCharacterStateAtom} from "../../session/atoms/recoil-atoms";
 import type {Option} from "vtm-baires-next-utils";
 import {useCustomLazyLoadQuery} from "vtm-baires-next-utils";
@@ -97,7 +97,8 @@ const HavenMapInternal = ({havens, showResonances, character, toggleResonanceVie
             return memoLegend;
         }
 
-        return (<></>);}
+        return (<></>);
+    }
 
     return (
         <>

@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {useRecoilState} from "recoil";
 import {sessionStateAtom} from "../../session/atoms/recoil-atoms";
 import type {Option} from "vtm-baires-next-utils";
-import {Session} from "../../session/types";
+import {Session} from "vtm-baires-next-services";
 import {LoginRoutes, Routes} from "../../base/routes";
 import CenteredBox from "../../../vtm-baires-next-components/src/components/CenteredBox";
 

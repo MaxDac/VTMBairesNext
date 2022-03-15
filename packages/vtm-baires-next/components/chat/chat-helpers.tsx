@@ -1,6 +1,6 @@
 import {Routes} from "../../base/routes";
 import type {Option} from "vtm-baires-next-utils";
-import type {SessionLocation} from "../../session/types";
+import type {SessionLocation} from "vtm-baires-next-services";
 import {ChatEntry} from "vtm-baires-next-services/graphql-queries/data-utils";
 import {replaceAll} from "vtm-baires-next-utils";
 import {defaultFormatDateAndTime} from "vtm-baires-next-utils";

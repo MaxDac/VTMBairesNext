@@ -1,7 +1,6 @@
 import {useRouter} from "next/router";
 import useLocalStorage from "./base/useLocalStorage";
-import type {Option} from "vtm-baires-next-utils";
-import type {Session} from "../types";
+import type {Session} from "vtm-baires-next-services";
 import {storageUserInfoKey} from "../types";
 import {useEffect} from "react";
 import {useRecoilValue} from "recoil";

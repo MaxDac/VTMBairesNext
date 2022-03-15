@@ -10,8 +10,18 @@ const useRecoilStateWithLocalStorage = <T>(key: StorageKey, atom: RecoilState<Op
     const [value, setValue] = useRecoilState<Option<T>>(atom)
 
     useEffect(() => {
-        if (value == null && storage.getStoredValue() != null) {
-            setValue((_: any) => storage.getStoredValue())
+        const storedValue = storage.getStoredValue()
+        console.debug("retrieved stored value:", storedValue)
+        console.debug("previous saved value: ", value)
+
+        const mustReplaceNullValue = value == null && storedValue != null
+        const mustReplaceDifferentValue = value != null && storedValue != null && value != storedValue
+
+        console.debug("mustReplaceNullValue", mustReplaceNullValue)
+        console.debug("mustReplaceDifferentValue", mustReplaceDifferentValue)
+
+        if (mustReplaceNullValue) { //} || mustReplaceDifferentValue) {
+            setValue((_: any) => storedValue)
         }
     }, [storage, value, setValue])
 
